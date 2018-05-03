@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const pg = require('pg')
 pg.defaults.ssl = true;
 
@@ -11,8 +12,7 @@ migrate({
     password: process.env.PGPASSWORD,
     host: process.env.PGHOST,
     port: parseInt(process.env.PGPORT)
-  },
-  "pg/migrate"
+  }, "pg/migrate"
 )
 .then(() => {
   console.log("Migration complete")
