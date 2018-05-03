@@ -13,6 +13,10 @@
     "postgres-migrations": "^2.0.1"
   },
   "scripts": {
-    "migrate": "babel-node bin/migrate.js"
+    "migrate": "babel-node bin/migrate.js",
+    "test": "ava test/oasis.js"
+  },
+  "devDependencies": {
+    "ava": "1.0.0-beta.4"
   }
 }
