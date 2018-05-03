@@ -1,0 +1,18 @@
+{
+  "name": "vulcan0x",
+  "version": "0.0.1",
+  "private": true,
+  "author": "dc",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "dotenv": "^5.0.1",
+    "postgres-migrations": "^2.0.1"
+  },
+  "scripts": {
+    "migrate": "babel-node bin/migrate.js"
+  }
+}
