@@ -1,0 +1,22 @@
+{
+  "name": "Oasis",
+  "version": 1.0,
+  "lib": "makerdao/maker-otc",
+  "address": {
+    "mainnet": "0x14fbca95be7e99c15cc2996c6c9d841e54b79425"
+  },
+  "events": [
+    {
+      "sig": "LogMake",
+      "actions": ["insertOffer.sql"]
+    },
+    {
+      "sig": "LogTake",
+      "actions": ["insertTrade", "updateOffer.sql"]
+    },
+    {
+      "sig": "LogKill",
+      "actions": ["deleteOffer.sql"]
+    }
+  ]
+}
