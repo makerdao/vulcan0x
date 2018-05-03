@@ -1,0 +1,60 @@
+[contract]
+
+name = "Oasis"
+version = "1.0"
+lib = "makerdao/maker-otc"
+
+[contract.address]
+
+mainnet = "0x14fbca95be7e99c15cc2996c6c9d841e54b79425"
+
+[[contract.events]]
+
+sig = "LogMake(
+  bytes32 id,
+  bytes32 pair,
+  address maker,
+  ERC20   pay_gem,
+  ERC20   buy_gem,
+  uint128 pay_amt,
+  uint128 buy_amt,
+  uint64  timestamp
+)"
+actions = ["db/insert-offer.sql"]
+
+[[contract.events]]
+
+sig = "LogTake(
+  bytes32 id
+  bytes32 pair
+  address maker,
+  ERC20   pay_gem,
+  ERC20   buy_gem,
+  address taker,
+  uint128 take_amt,
+  uint128 give_amt,
+  uint64  timestamp
+)"
+actions = ["db/insert-trade.sql", "db/update-offer.sql"]
+
+[[contract.events]]
+
+sig = "LogKill(
+  bytes32 id,
+  bytes32 pair,
+  address maker,
+  ERC20   pay_gem,
+  ERC20   buy_gem,
+  uint128 pay_amt,
+  uint128 buy_amt,
+  uint64  timestamp
+)"
+actions = ["db/delete-offer.sql"]
+
+[psql]
+
+schema = "db/schema.sql"
+
+[psql.migrations]
+
+1 = "db/migrate/tables.sql"
