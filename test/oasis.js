@@ -1,11 +1,6 @@
 import test from 'ava';
+import * as oasis from '../dapp/oasis/events'
 
-test('foo', t => {
-	t.pass();
-});
-
-test('bar', async t => {
-	const bar = Promise.resolve('bar');
-
-	t.is(await bar, 'bar');
+test('LogTake id', t => {
+	t.is(oasis.events[0].data({id: 999 }).id, 999);
 });

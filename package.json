@@ -14,6 +14,7 @@
   },
   "scripts": {
     "migrate": "babel-node bin/migrate.js",
+    "subscribe": "babel-node bin/subscribe.js",
     "test": "ava test/oasis.js"
   },
   "devDependencies": {
