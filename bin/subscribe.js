@@ -1,9 +1,9 @@
-const oasis = require('../dapp/oasis/events');
-console.log(oasis.events);
+const oasis = require('../dapp/oasis/index');
+const contract = new web3.eth.Contract(oasis.abi, oasis.address[process.env.CHAIN]);
 
-const subscribe = () => {
-  tub.events.LogNote({
-    filter: { sig: lib.act.cupSigs }
+const subscribe = (sig) => {
+  contract.events[sig]({
+    filter: { oasis[sig].filters }
   }, (e,r) => {
     if (e)
       console.log(e)
@@ -12,4 +12,11 @@ const subscribe = () => {
   .on("error", console.log);
 }
 
-const mutate = () => {}
+const mutate = (event) => {
+  return get(log)
+  .then(data => {
+    lib.db.none(mutation, { data })
+    console.log(data);
+  })
+  .catch(e => console.log(e));
+}
