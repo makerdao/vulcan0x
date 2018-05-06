@@ -15,9 +15,12 @@
   "scripts": {
     "migrate": "babel-node bin/migrate.js",
     "subscribe": "babel-node bin/subscribe.js",
-    "test": "ava test/oasis.js"
+    "test": "jest"
   },
   "devDependencies": {
-    "ava": "1.0.0-beta.4"
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.4.3"
   }
 }

@@ -1,13 +1,18 @@
 //import timestamp from web3;
+import web3 from "../lib/web3";
 
-const address = {
-  mainnet: "0x",
-  kovan: "0x"
+export const address = {
+  mainnet: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
+  kovan:   "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 }
 
-const abi = require('abi.json');
+// const byteCode = {
+//   web3.eth.getCode(address)
+// }
 
-const logKillEvent = {
+export const abi = require('abi.json');
+
+export const logKillEvent = {
   sig: "LogKill",
   filters:  {},
   transform: function(log) {
@@ -15,10 +20,10 @@ const logKillEvent = {
       id: log.id
     }
   },
-  mutate: ["deleteOffer.sql"]
+  mutate: ["offer-delete.sql"]
 }
 
-const logTakeEvent = {
+export const logTakeEvent = {
   sig: "LogKill",
   filters:  {},
   transform: function(log) {
@@ -35,11 +40,5 @@ const logTakeEvent = {
       tx: log.transactionHash
     }
   },
-  mutate: ["insertTrade.sql", "updateOffer.sql"]
-}
-
-module.exports = {
-  abi: abi,
-  address: address,
-  events: []
+  mutate: ["trade-insert.sql", "offer-update.sql"]
 }
