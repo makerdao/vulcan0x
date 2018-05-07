@@ -1,12 +1,10 @@
 import dapps from './dapps';
-import { contract, watch } from './contract';
+import { contract, listen } from './contract';
 
-const subscribe = () => {
-  for (var i=0, len = dapps.length; i < len; i++) {
-    console.log("Subscribe:", dapps[i])
-    let c = contract(dapps[i]);
-     watch(c.instance, c.config);
-  }
+const subscribe = (name) => {
+  console.log("Subscribe:", name)
+  let dapp = contract(name);
+  listen(dapp.instance, dapp.config);
 }
 
-subscribe();
+dapps.forEach(subscribe);

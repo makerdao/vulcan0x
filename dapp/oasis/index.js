@@ -1,6 +1,13 @@
-export const address = {
-  mainnet: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
-  kovan: "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9"
+export const info = {
+  mainnet: {
+    address: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
+    //firstBlock: 4861905
+    firstBlock: 5565111
+  },
+  kovan: {
+    address: "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9",
+    firstBlock: 5216718
+  }
 }
 
 const logMakeEvent = {
@@ -46,4 +53,4 @@ const logKillEvent = {
   mutate: ["offer-delete.sql"]
 }
 
-export const events = [logMakeEvent, logTakeEvent, logKillEvent]
+export const events = [logMakeEvent]
