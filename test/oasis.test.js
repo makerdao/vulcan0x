@@ -1,5 +1,5 @@
-import * as oasis from '../dapp/oasis/index.js';
+import * as oasis from '../dapp/oasis';
 
-test('LogTake id', t => {
-	t.is(oasis.events[0].data({id: 999 }).id, 999);
+test('LogKill id', () => {
+	expect(oasis.events[0].transform({id: 999}).id).toBe(999);
 });

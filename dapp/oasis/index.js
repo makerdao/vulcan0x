@@ -1,20 +1,43 @@
-//import timestamp from web3;
-import web3 from "../lib/web3";
-
 export const address = {
   mainnet: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
-  kovan:   "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  kovan: "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9"
 }
 
-// const byteCode = {
-//   web3.eth.getCode(address)
-// }
+const logMakeEvent = {
+  sig: "LogMake",
+  transform: function(log) {
+    return {
+      id: log.id,
+      pair: log.pair,
+      guy: log.maker,
+      gem: log.pay_gem,
+      pie: log.buy_gem,
+      lot: log.pay_amt,
+      bid: log.buy_amt
+    }
+  },
+  mutate: ["offer-insert.sql"]
+}
 
-export const abi = require('abi.json');
+const logTakeEvent = {
+  sig: "LogTake",
+  transform: function(log) {
+    return {
+      id: log.id,
+      pair: log.pair,
+      guy: log.guy,
+      gem: log.pay_gem,
+      pie: log.buy_gem,
+      gal: log.taker,
+      lot: log.pay_amt,
+      bid: log.buy_amt
+    }
+  },
+  mutate: ["trade-insert.sql", "offer-update.sql"]
+}
 
-export const logKillEvent = {
+const logKillEvent = {
   sig: "LogKill",
-  filters:  {},
   transform: function(log) {
     return {
       id: log.id
@@ -23,22 +46,4 @@ export const logKillEvent = {
   mutate: ["offer-delete.sql"]
 }
 
-export const logTakeEvent = {
-  sig: "LogKill",
-  filters:  {},
-  transform: function(log) {
-    return {
-      id: log.id,
-      pair: log.pair,
-      maker: log.guy,
-      gem: log.pay_gem,
-      pie: log.buy_gem,
-      lot: log.pay_amt,
-      bid: log.buy_amt,
-      //time: web3.eth.getBlock(log.blockNumber).timestamp,
-      block: log.blockNumber,
-      tx: log.transactionHash
-    }
-  },
-  mutate: ["trade-insert.sql", "offer-update.sql"]
-}
+export const events = [logMakeEvent, logTakeEvent, logKillEvent]
