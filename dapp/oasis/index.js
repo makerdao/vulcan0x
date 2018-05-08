@@ -1,8 +1,10 @@
+import {sql} from '../../src/db';
+
 export const info = {
   mainnet: {
     address: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
     //firstBlock: 4861905
-    firstBlock: 5569111
+    firstBlock: 5572111
   },
   kovan: {
     address: "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9",
@@ -23,7 +25,7 @@ const make = {
       bid: log.returnValues.buy_amt
     }
   },
-  mutate: ["offer-insert.sql"]
+  mutate: [sql("dapp/oasis/sql/offerInsert")]
 }
 
 const take = {
@@ -40,7 +42,7 @@ const take = {
       bid: log.returnValues.buy_amt
     }
   },
-  mutate: ["trade-insert.sql", "offer-update.sql"]
+  mutate: [sql("dapp/oasis/sql/tradeInsert"), sql("dapp/oasis/sql/offerUpdate")]
 }
 
 const kill = {
@@ -50,7 +52,7 @@ const kill = {
       id: log.returnValues.id
     }
   },
-  mutate: ["offer-delete.sql"]
+  mutate: [sql("dapp/oasis/sql/offerDelete")]
 }
 
 export const events = [make, take, kill]

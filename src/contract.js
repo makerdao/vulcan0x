@@ -1,6 +1,7 @@
 import web3 from './web3';
+import {db} from './db';
 
-// Given a config directory, instatiate a contract instance
+// Given a config directory, instantiate a contract instance
 export const contract = (path) => {
   const config = require(`../${path}`);
   const abi = require(`../${path}/abi/${config.info[process.env.CHAIN].address}.json`);
@@ -25,19 +26,15 @@ export const listen = (contract, config) => {
   }
 }
 
-// Trigger a write when an event fires
-export const fire = (event, log) => {
+// Trigger a mutation when an event fires
+export const fire = (event, log, dir) => {
   return txMeta(log).then(meta => {
-    write(Object.assign(event.transform(log), meta))
+    return Object.assign(event.transform(log), meta)
+  })
+  .then(data => {
+    return db.none(event.mutate[0], data)
   })
   .catch(e => console.log(e));
-}
-
-// Perform the write to postgres
-export const write = (data) => {
-  console.log(data);
-  //lib.db.none(event.mutate, { data })
-  //.catch(e => console.log(e));
 }
 
 export const txMeta = (log) => {
@@ -49,3 +46,5 @@ export const txMeta = (log) => {
     }
   })
 }
+
+
