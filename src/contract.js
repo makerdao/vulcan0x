@@ -25,13 +25,27 @@ export const listen = (contract, config) => {
   }
 }
 
-// Trigger a mutation when an event fires
+// Trigger a write when an event fires
 export const fire = (event, log) => {
-  console.log(log);
-  // return event.transform(log)
-  // .then(data => {
-  //   lib.db.none(event.mutate, { data })
-  //   console.log(data);
-  // })
-  // .catch(e => console.log(e));
+  return txMeta(log).then(meta => {
+    write(Object.assign(event.transform(log), meta))
+  })
+  .catch(e => console.log(e));
+}
+
+// Perform the write to postgres
+export const write = (data) => {
+  console.log(data);
+  //lib.db.none(event.mutate, { data })
+  //.catch(e => console.log(e));
+}
+
+export const txMeta = (log) => {
+  return web3.eth.getBlock(log.blockNumber).then(block => {
+    return {
+      block: log.blockNumber,
+      tx: log.transactionHash,
+      time: block.timestamp
+    }
+  })
 }
