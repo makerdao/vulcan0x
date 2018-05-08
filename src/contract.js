@@ -1,14 +1,15 @@
 import web3 from './web3';
 import {db} from './db';
+import { chain } from '../config';
 
 // Given a config directory, instantiate a contract instance
 export const contract = (path) => {
   const config = require(`../${path}`);
-  const abi = require(`../${path}/abi/${config.info[process.env.CHAIN].address}.json`);
+  const abi = require(`../${path}/abi/${config.info[chain.id].address}.json`);
   return {
     config: config,
     info: config.info,
-    instance: new web3.eth.Contract(abi, config.info[process.env.CHAIN].address)
+    instance: new web3.eth.Contract(abi, config.info[chain.id].address)
   }
 }
 
@@ -32,7 +33,8 @@ export const fire = (event, log, dir) => {
     return Object.assign(event.transform(log), meta)
   })
   .then(data => {
-    return db.none(event.mutate[0], data)
+    console.log(data);
+    //return db.none(event.mutate[0], data)
   })
   .catch(e => console.log(e));
 }

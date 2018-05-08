@@ -1,8 +1,9 @@
-require('dotenv').config();
+import { chain } from '../config';
 
-const prov = process.env.ETH_URL || 'wss://mainnet.infura.io/_ws';
+console.log(chain);
+
 const Web3 = require('web3');
-const web3 = new Web3(Web3.givenProvider || prov);
+const web3 = new Web3(Web3.givenProvider || chain.provider);
 
 console.log("Web3:", web3.version);
 

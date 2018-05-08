@@ -1,6 +1,7 @@
 import web3 from './web3';
 import dapps from './dapps';
 import { contract, fire } from './contract';
+import { chain } from '../config';
 
 const syncDapp = (name) => {
   console.log("Sync:", name)
@@ -13,7 +14,7 @@ const syncEvents = (dapp, event) => {
   web3.eth.getBlockNumber()
   .then(latest => {
     return {
-      fromBlock: dapp.info[process.env.CHAIN].firstBlock,
+      fromBlock: dapp.info[chain.id].firstBlock,
       toBlock: latest,
       filter: event.filters || {}
     }

@@ -1,4 +1,4 @@
-require('dotenv').config()
+import { db } from '../config';
 
 const pg = require('pg')
 pg.defaults.ssl = true;
@@ -6,17 +6,6 @@ pg.defaults.ssl = true;
 const {migrate} = require("postgres-migrations")
 
 // TODO - check that the database exists
-migrate({
-    database: process.env.PGDATABASE,
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    host: process.env.PGHOST,
-    port: parseInt(process.env.PGPORT)
-  }, "pg/migrate"
-)
-.then(() => {
-  console.log("Migration complete")
-})
-.catch((e) => {
-  console.log(e)
-})
+migrate(db, "pg/migrate")
+.then(() => console.log("Migration complete"))
+.catch((e) => console.log(e))
