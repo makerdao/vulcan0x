@@ -11,7 +11,8 @@ const mainnet = {
    password: process.env.MAIN_PGPASSWORD,
    host: process.env.MAIN_PGHOST,
    port: parseInt(process.env.MAIN_PGPORT),
-   database: process.env.MAIN_PGDATABASE
+   database: process.env.MAIN_PGDATABASE,
+   ssl: true
  }
 };
 const kovan = {
@@ -24,7 +25,8 @@ const kovan = {
    password: process.env.KOVAN_PGPASSWORD,
    host: process.env.KOVAN_PGHOST,
    port: parseInt(process.env.KOVAN_PGPORT),
-   database: process.env.KOVAN_PGDATABASE
+   database: process.env.KOVAN_PGDATABASE,
+   ssl: true
  }
 };
 const develop = {
@@ -37,20 +39,22 @@ const develop = {
    password: process.env.DEVELOP_PGPASSWORD,
    host: process.env.DEVELOP_PGHOST,
    port: parseInt(process.env.DEVELOP_PGPORT),
-   database: process.env.DEVELOP_PGDATABASE
+   database: process.env.DEVELOP_PGDATABASE,
+   ssl: false
  }
 };
 const test = {
  chain: {
-   id: 'test',
-   provider: 'wss://kovan.infura.io/_ws'
+   id: 'mainnet',
+   provider: 'wss://mainnet.infura.io/_ws'
  },
  db: {
    user: process.env.TEST_PGUSER,
    password: process.env.TEST_PGPASSWORD,
    host: process.env.TEST_PGHOST,
    port: parseInt(process.env.TEST_PGPORT),
-   database: process.env.TEST_PGDATABASE
+   database: process.env.TEST_PGDATABASE,
+   ssl: false
  }
 };
 

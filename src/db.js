@@ -3,7 +3,7 @@ import { db as config } from '../config';
 const pgp = require('pg-promise')()
 const path = require('path')
 
-const db = pgp(Object.assign(config, { ssl: true }));
+const db = pgp(config);
 
 function sql(file) {
   const fullPath = path.join(__dirname, '../'+file+'.sql');

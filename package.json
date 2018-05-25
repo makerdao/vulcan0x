@@ -13,6 +13,7 @@
     "dotenv": "^5.0.1",
     "pg-promise": "^8.4.3",
     "postgres-migrations": "^2.0.1",
+    "ramda": "^0.25.0",
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {

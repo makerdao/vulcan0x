@@ -1,12 +1,12 @@
-INSERT INTO oasis.trade (
+INSERT INTO trade (
   id,
   pair,
-  guy,
-  gem,
-  lot,
-  gal,
-  pie,
-  bid,
+  maker,
+  taker,
+  lot_gem,
+  bid_gem,
+  lot_amt,
+  bid_amt,
   block,
   time,
   tx
@@ -14,13 +14,15 @@ INSERT INTO oasis.trade (
 VALUES (
   ${id},
   ${pair},
-  ${guy},
-  ${gem},
-  ${lot},
-  ${gal},
-  ${pie},
-  ${bid},
-  to_timestamp(${time}),
+  ${maker},
+  ${taker},
+  ${lot_gem},
+  ${bid_gem},
+  ${lot_amt},
+  ${bid_amt},
   ${block},
-  ${tx},
+  to_timestamp(${time}),
+  ${tx}
 )
+ON CONFLICT ( tx )
+DO NOTHING

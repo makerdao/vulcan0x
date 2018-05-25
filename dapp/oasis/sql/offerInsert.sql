@@ -1,11 +1,11 @@
-INSERT INTO oasis.offer (
+INSERT INTO offer (
   id,
   pair,
-  guy,
-  gem,
-  lot,
-  pie,
-  bid,
+  maker,
+  lot_gem,
+  lot_amt,
+  bid_gem,
+  bid_amt,
   block,
   time,
   tx
@@ -13,12 +13,14 @@ INSERT INTO oasis.offer (
 VALUES (
   ${id},
   ${pair},
-  ${guy},
-  ${gem},
-  ${lot},
-  ${pie},
-  ${bid},
-  to_timestamp(${time}),
-  ${block},
-  ${tx}
+  ${maker},
+  ${lot_gem},
+  ${lot_amt},
+  ${bid_gem},
+  ${bid_amt},
+  999,
+  to_timestamp(11234),
+  'asdf'
 )
+ON CONFLICT ( id )
+DO NOTHING

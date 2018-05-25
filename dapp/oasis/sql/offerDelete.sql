@@ -1,1 +1,1 @@
-DELETE from oasis.offer where id = ${id}
+DELETE from offer where id = ${id}

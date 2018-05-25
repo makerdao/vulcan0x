@@ -1,3 +1,4 @@
+const R = require('ramda');
 import web3 from './web3';
 import {db} from './db';
 import { chain } from '../config';
@@ -27,19 +28,34 @@ export const listen = (contract, config) => {
   }
 }
 
-// Trigger a mutation when an event fires
-export const fire = (event, log, dir) => {
-  return txMeta(log).then(meta => {
-    return Object.assign(event.transform(log), meta)
+// Run mutations when an event fires
+export const fire = (event, log) => {
+  return getBlock(log).then(block => {
+    return Object.assign(event.transform(log), block)
   })
   .then(data => {
-    console.log(data);
-    //return db.none(event.mutate[0], data)
+    return runMutations(event, data)
+    .catch(e => console.log(e));
   })
   .catch(e => console.log(e));
 }
 
-export const txMeta = (log) => {
+// Mock
+// const getBlock = (log) => {
+//   let p = new Promise(
+//     function(resolve, reject) {
+//     let rtn = {
+//       block: 999,
+//       tx: "0xasdfasdf",
+//       time: 1234
+//     }
+//     resolve(rtn);
+//     }
+//   )
+//   return p
+// }
+
+const getBlock = (log) => {
   return web3.eth.getBlock(log.blockNumber).then(block => {
     return {
       block: log.blockNumber,
@@ -49,4 +65,10 @@ export const txMeta = (log) => {
   })
 }
 
-
+const runMutations = (event, data) => {
+  console.log(event.sig, data);
+  return db.tx(t => {
+    const sql = template => t.any(template, data)
+    return t.batch(R.map(sql, event.mutate))
+  })
+}

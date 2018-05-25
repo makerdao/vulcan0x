@@ -1,3 +1,3 @@
-UPDATE oasis.offer
-SET (lot, bid) = (${lot}, ${bid})
-WHERE oasis.offers.id = ${id};
+UPDATE offer
+SET (lot_amt, bid_amt) = (${lot_amt}, ${bid_amt})
+WHERE offer.id = ${id};
