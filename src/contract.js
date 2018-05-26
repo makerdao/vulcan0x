@@ -41,29 +41,29 @@ export const fire = (event, log) => {
 }
 
 // Mock
-// const getBlock = (log) => {
-//   let p = new Promise(
-//     function(resolve, reject) {
-//     let rtn = {
-//       block: 999,
-//       tx: "0xasdfasdf",
-//       time: 1234
-//     }
-//     resolve(rtn);
-//     }
-//   )
-//   return p
-// }
-
 const getBlock = (log) => {
-  return web3.eth.getBlock(log.blockNumber).then(block => {
-    return {
-      block: log.blockNumber,
-      tx: log.transactionHash,
-      time: block.timestamp
+  let p = new Promise(
+    function(resolve, reject) {
+    let rtn = {
+      block: 999,
+      tx: "0xasdfasdf",
+      time: 1234
     }
-  })
+    resolve(rtn);
+    }
+  )
+  return p
 }
+
+// const getBlock = (log) => {
+//   return web3.eth.getBlock(log.blockNumber).then(block => {
+//     return {
+//       block: log.blockNumber,
+//       tx: log.transactionHash,
+//       time: block.timestamp
+//     }
+//   })
+// }
 
 const runMutations = (event, data) => {
   console.log(event.sig, data);

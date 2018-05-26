@@ -1,5 +1,4 @@
 require('dotenv').config()
-const env = process.env.NODE_ENV;
 
 const mainnet = {
  chain: {
@@ -13,13 +12,17 @@ const mainnet = {
    port: parseInt(process.env.MAIN_PGPORT),
    database: process.env.MAIN_PGDATABASE,
    ssl: true
+ },
+ express: {
+   port: 80,
+   db: dbString
  }
 };
+
 const kovan = {
  chain: {
    id: 'kovan',
-   provider: 'wss://kovan.infura.io/_ws'
- },
+   provider: 'wss://kovan.infura.io/_ws' },
  db: {
    user: process.env.KOVAN_PGUSER,
    password: process.env.KOVAN_PGPASSWORD,
@@ -27,8 +30,13 @@ const kovan = {
    port: parseInt(process.env.KOVAN_PGPORT),
    database: process.env.KOVAN_PGDATABASE,
    ssl: true
+ },
+ express: {
+   port: 80,
+   db: dbString
  }
 };
+
 const develop = {
  chain: {
    id: 'kovan',
@@ -41,6 +49,10 @@ const develop = {
    port: parseInt(process.env.DEVELOP_PGPORT),
    database: process.env.DEVELOP_PGDATABASE,
    ssl: false
+ },
+ express: {
+   port: 80,
+   db: dbString
  }
 };
 const test = {
@@ -55,9 +67,18 @@ const test = {
    port: parseInt(process.env.TEST_PGPORT),
    database: process.env.TEST_PGDATABASE,
    ssl: false
+ },
+ express: {
+   port: 80,
+   db: dbString
  }
 };
 
-const config = { mainnet, kovan, develop, test };
+const envs = { mainnet, kovan, develop, test }
+const config = envs[process.env.NODE_ENV];
 
-module.exports = config[env];
+const dbString = () => {
+ return `postgres:\/\/${config.db.user}:${config.db.password}@${config.db.host}:${config.db.port}/${config.db.database}?ssl=${config.db.ssl}`
+}
+
+module.exports = config;

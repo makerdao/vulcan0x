@@ -1,7 +1,6 @@
 import * as oasis from '../dapp/oasis';
 import { fire } from '../src/contract';
 
-//TODO - modularize setup and teardown
 import { db } from '../config';
 import { migrate } from  'postgres-migrations'
 
@@ -80,6 +79,3 @@ describe('LogKill Event', () => {
   });
 
 });
-
-
-
