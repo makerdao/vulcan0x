@@ -6,7 +6,6 @@ import { migrate } from  'postgres-migrations'
 
 beforeAll(() => {
   return migrate(db, "pg/migrate")
-  .catch((e) => console.log(e))
 });
 
 describe('LogMake Event', () => {

@@ -14,8 +14,8 @@ const mainnet = {
    ssl: true
  },
  express: {
-   port: 80,
-   db: dbString
+   port: 4000,
+   db: `postgres:\/\/${process.env.MAIN_PGUSER}:${process.env.MAIN_PGPASSWORD}@${process.env.MAIN_PGHOST}:${process.env.MAIN_PGPORT}/${process.env.MAIN_PGDATABASE}?ssl=true`
  }
 };
 
@@ -32,8 +32,8 @@ const kovan = {
    ssl: true
  },
  express: {
-   port: 80,
-   db: dbString
+   port: 4000,
+   db: `postgres:\/\/${process.env.KOVAN_PGUSER}:${process.env.KOVAN_PGPASSWORD}@${process.env.KOVAN_PGHOST}:${process.env.KOVAN_PGPORT}/${process.env.KOVAN_PGDATABASE}?ssl=true`
  }
 };
 
@@ -51,8 +51,8 @@ const develop = {
    ssl: false
  },
  express: {
-   port: 80,
-   db: dbString
+   port: 4000,
+   db: `postgres:\/\/${process.env.DEVELOP_PGUSER}:${process.env.DEVELOP_PGPASSWORD}@${process.env.DEVELOP_PGHOST}:${process.env.DEVELOP_PGPORT}/${process.env.DEVELOP_PGDATABASE}?ssl=false`
  }
 };
 const test = {
@@ -69,16 +69,13 @@ const test = {
    ssl: false
  },
  express: {
-   port: 80,
-   db: dbString
+   port: 4000,
+   db: `postgres:\/\/${process.env.TEST_PGUSER}:${process.env.TEST_PGPASSWORD}@${process.env.TEST_PGHOST}:${process.env.TEST_PGPORT}/${process.env.TEST_PGDATABASE}?ssl=false`
  }
 };
 
+const env = process.env.NODE_ENV || 'develop';
 const envs = { mainnet, kovan, develop, test }
-const config = envs[process.env.NODE_ENV];
-
-const dbString = () => {
- return `postgres:\/\/${config.db.user}:${config.db.password}@${config.db.host}:${config.db.port}/${config.db.database}?ssl=${config.db.ssl}`
-}
+const config = envs[env];
 
 module.exports = config;
