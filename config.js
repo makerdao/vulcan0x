@@ -3,7 +3,7 @@ require('dotenv').config()
 const mainnet = {
  chain: {
    id: 'mainnet',
-   provider: 'wss://mainnet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainet.infura.io/_ws'
  },
  db: {
    user: process.env.MAIN_PGUSER,
@@ -22,7 +22,8 @@ const mainnet = {
 const kovan = {
  chain: {
    id: 'kovan',
-   provider: 'wss://kovan.infura.io/_ws' },
+   provider: process.env.ETH_PROVIDER || 'ws://localhost:8546'
+ },
  db: {
    user: process.env.KOVAN_PGUSER,
    password: process.env.KOVAN_PGPASSWORD,
@@ -40,7 +41,7 @@ const kovan = {
 const develop = {
  chain: {
    id: 'kovan',
-   provider: 'wss://kovan.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'ws://localhost:8546'
  },
  db: {
    user: process.env.DEVELOP_PGUSER,
@@ -58,7 +59,7 @@ const develop = {
 const test = {
  chain: {
    id: 'mainnet',
-   provider: 'wss://mainnet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainet.infura.io/_ws'
  },
  db: {
    user: process.env.TEST_PGUSER,
