@@ -18,9 +18,9 @@ VALUES (
   ${lot_amt},
   ${bid_gem},
   ${bid_amt},
-  999,
-  to_timestamp(11234),
-  'asdf'
+  ${block},
+  to_timestamp(${time}),
+  ${tx}
 )
 ON CONFLICT ( id )
 DO NOTHING
