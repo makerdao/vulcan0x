@@ -51,9 +51,12 @@ const getBlock = (log) => {
 }
 
 const runMutations = (event, data) => {
-  console.log(event.sig, data);
   return db.tx(t => {
     const sql = template => t.any(template, data)
     return t.batch(R.map(sql, event.mutate))
+    .then(p => {
+      console.log(event.sig, data);
+      return p
+    })
   })
 }

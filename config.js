@@ -3,7 +3,7 @@ require('dotenv').config()
 const mainnet = {
  chain: {
    id: 'mainnet',
-   provider: process.env.ETH_PROVIDER || 'wss://mainet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
    user: process.env.MAIN_PGUSER,
@@ -59,7 +59,7 @@ const develop = {
 const test = {
  chain: {
    id: 'mainnet',
-   provider: process.env.ETH_PROVIDER || 'wss://mainet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
    user: process.env.TEST_PGUSER,
