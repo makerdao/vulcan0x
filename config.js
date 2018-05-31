@@ -3,26 +3,26 @@ require('dotenv').config()
 const mainnet = {
  chain: {
    id: 'mainnet',
-   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
+   provider: process.env.MAINNET_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
-   user: process.env.MAIN_PGUSER,
-   password: process.env.MAIN_PGPASSWORD,
-   host: process.env.MAIN_PGHOST,
-   port: parseInt(process.env.MAIN_PGPORT),
-   database: process.env.MAIN_PGDATABASE,
+   user: process.env.MAINNET_PGUSER,
+   password: process.env.MAINNET_PGPASSWORD,
+   host: process.env.MAINNET_PGHOST,
+   port: parseInt(process.env.MAINNET_PGPORT),
+   database: process.env.MAINNET_PGDATABASE,
    ssl: true
  },
  express: {
    port: 4000,
-   db: `postgres:\/\/${process.env.MAIN_PGUSER}:${process.env.MAIN_PGPASSWORD}@${process.env.MAIN_PGHOST}:${process.env.MAIN_PGPORT}/${process.env.MAIN_PGDATABASE}?ssl=true`
+   db: `postgres:\/\/${process.env.MAINNET_PGUSER}:${process.env.MAINNET_PGPASSWORD}@${process.env.MAINNET_PGHOST}:${process.env.MAINNET_PGPORT}/${process.env.MAINNET_PGDATABASE}?ssl=true`
  }
 };
 
 const kovan = {
  chain: {
    id: 'kovan',
-   provider: process.env.ETH_PROVIDER || 'ws://localhost:8546'
+   provider: process.env.KOVAN_PROVIDER || 'ws://localhost:8546'
  },
  db: {
    user: process.env.KOVAN_PGUSER,
@@ -41,7 +41,7 @@ const kovan = {
 const develop = {
  chain: {
    id: 'kovan',
-   provider: process.env.ETH_PROVIDER || 'ws://localhost:8546'
+   provider: process.env.DEVELOP_PROVIDER || 'ws://localhost:8546'
  },
  db: {
    user: process.env.DEVELOP_PGUSER,
@@ -59,7 +59,7 @@ const develop = {
 const test = {
  chain: {
    id: 'mainnet',
-   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
+   provider: process.env.TEST_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
    user: process.env.TEST_PGUSER,
