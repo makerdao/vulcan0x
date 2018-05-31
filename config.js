@@ -11,11 +11,11 @@ const mainnet = {
    host: process.env.MAINNET_PGHOST,
    port: parseInt(process.env.MAINNET_PGPORT),
    database: process.env.MAINNET_PGDATABASE,
-   ssl: true
+   ssl: false
  },
  express: {
    port: 4000,
-   db: `postgres:\/\/${process.env.MAINNET_PGUSER}:${process.env.MAINNET_PGPASSWORD}@${process.env.MAINNET_PGHOST}:${process.env.MAINNET_PGPORT}/${process.env.MAINNET_PGDATABASE}?ssl=true`
+   db: `postgres:\/\/${process.env.MAINNET_PGUSER}:${process.env.MAINNET_PGPASSWORD}@${process.env.MAINNET_PGHOST}:${process.env.MAINNET_PGPORT}/${process.env.MAINNET_PGDATABASE}?ssl=false`
  }
 };
 
@@ -30,18 +30,18 @@ const kovan = {
    host: process.env.KOVAN_PGHOST,
    port: parseInt(process.env.KOVAN_PGPORT),
    database: process.env.KOVAN_PGDATABASE,
-   ssl: true
+   ssl: false
  },
  express: {
    port: 4000,
-   db: `postgres:\/\/${process.env.KOVAN_PGUSER}:${process.env.KOVAN_PGPASSWORD}@${process.env.KOVAN_PGHOST}:${process.env.KOVAN_PGPORT}/${process.env.KOVAN_PGDATABASE}?ssl=true`
+   db: `postgres:\/\/${process.env.KOVAN_PGUSER}:${process.env.KOVAN_PGPASSWORD}@${process.env.KOVAN_PGHOST}:${process.env.KOVAN_PGPORT}/${process.env.KOVAN_PGDATABASE}?ssl=false`
  }
 };
 
 const develop = {
  chain: {
-   id: 'kovan',
-   provider: process.env.DEVELOP_PROVIDER || 'ws://localhost:8546'
+   id: 'mainnet',
+   provider: process.env.TEST_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
    user: process.env.DEVELOP_PGUSER,

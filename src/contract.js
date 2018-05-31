@@ -10,7 +10,7 @@ export const contract = (path) => {
   return {
     config: config,
     info: config.info,
-    instance: new web3.eth.Contract(abi, config.info[chain.id].address)
+    connect: new web3.eth.Contract(abi, config.info[chain.id].address)
   }
 }
 

@@ -4,22 +4,40 @@ import { contract, fire } from './contract';
 import { chain } from '../config';
 
 const syncDapp = (name) => {
-  console.log("Sync:", name)
+  console.log("Contract:", name, "-------------------")
   let dapp = contract(name);
-  dapp.config.events.forEach(event => syncEvents(dapp, event));
-}
-
-const syncEvents = (dapp, event) => {
-  console.log("Sync:", event.sig)
   web3.eth.getBlockNumber()
   .then(latest => {
-    return {
-      fromBlock: dapp.info[chain.id].firstBlock,
-      toBlock: latest,
-      filter: event.filters || {}
-    }
+    console.log("Latest block:", latest);
+    dapp.config.events.forEach(event => batchEventSync(dapp, event, latest));
   })
-  .then(options => dapp.instance.getPastEvents(event.sig, options))
+  .catch(e => console.log(e));
+}
+
+const batchEventSync = (dapp, event, latestBlock) => {
+  const step = process.env.BATCH || 50000;
+  const first = dapp.info[chain.id].firstBlock;
+  const batches = (to, arr=[]) => {
+    arr.push({from: to-step, to: to })
+    if(to < first-step)
+      return arr;
+    else
+      return batches(to-step, arr);
+  }
+  const contract = dapp.connect;
+  require('bluebird').map(batches(latestBlock), (o) => {
+    return syncEvents(contract, event, o.from, o.to);
+  }, {concurrency: 1})
+  .then(() => console.log("batchSync complete"));
+}
+
+const syncEvents = (contract, event, from, to) => {
+  const options = {
+    fromBlock: from,
+    toBlock: to,
+    filter: event.filters || {}
+  }
+  return contract.getPastEvents(event.sig, options)
   .then(logs => logs.forEach(log => fire(event, log)))
   .catch(e => console.log(e));
 }
