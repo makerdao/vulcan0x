@@ -17,13 +17,16 @@ export const contract = (path) => {
 // Subscribe to all events for a given contract
 export const listen = (contract, config) => {
   for (var i=0, len = config.events.length; i < len; i++) {
-    contract.events[config.events[i].sig]({
-      filter: config.events[i].filters
+    const evnt = config.events[i];
+    console.log(">", evnt.sig);
+    contract.events[evnt.sig]({
+      filter: evnt.filters
     }, (e,r) => {
       if (e)
         console.log(e)
     })
-    .on("data", (log) => fire(config.events[i], log))
+    .on("data", (log) => fire(evnt, log))
+    .on("changed", (log) => console.log)
     .on("error", console.log);
   }
 }
@@ -33,10 +36,7 @@ export const fire = (event, log) => {
   return getBlock(log).then(block => {
     return Object.assign(event.transform(log), block)
   })
-  .then(data => {
-    return runMutations(event, data)
-    .catch(e => console.log(e));
-  })
+  .then(data => { return runMutations(event, data) })
   .catch(e => console.log(e));
 }
 
