@@ -1,6 +1,3 @@
-CREATE OR REPLACE FUNCTION trade_offer(trade trade) RETURNS offer as $$
-  SELECT *
-  FROM offer
-  WHERE offer.id = trade.id
-  LIMIT 1
-$$ LANGUAGE SQL stable;
+ALTER TABLE offer ADD COLUMN killed boolean default false;
+
+CREATE INDEX offer_killed_idx ON offer(killed);

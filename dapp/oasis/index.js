@@ -42,7 +42,7 @@ const take = {
       bid_amt: wad(log.returnValues.take_amt)
     }
   },
-  mutate: [sql("dapp/oasis/sql/tradeInsert"), sql("dapp/oasis/sql/offerUpdate")]
+  mutate: [sql("dapp/oasis/sql/tradeInsert")]
 }
 
 const kill = {
@@ -52,7 +52,7 @@ const kill = {
       id: id(log.returnValues.id)
     }
   },
-  mutate: [sql("dapp/oasis/sql/offerDelete")]
+  mutate: [sql("dapp/oasis/sql/offerKill")]
 }
 
 export const events = [make, take, kill]
