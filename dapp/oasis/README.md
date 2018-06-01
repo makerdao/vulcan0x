@@ -1,44 +1,44 @@
 ## Oasis GraphQL
 
-An `Offer` represents a transaction created by msg.sender - `guy` to exchange
-`lot` amount of ERC20 `gem` for `bid` amount of ERC20 `pie`. When an offer is
-received the specified amount of offered `gem` is transferred from `guy` to the
-Oasis liquidity pool.
+An `Offer` represents a transaction created by msg.sender - `maker` to exchange
+`lot` amount of ERC20 `gem` for `bid` amount of ERC20 `gem`. When an offer is
+received the specified amount of offered `gem` is transferred from the `maker` to
+the Oasis liquidity pool.
 
 ```graphql
 type Offer {
-  id:    Int      # unique id
-  pair:  String   # pair hash
-  guy:   String   # msg.sender (maker)
-  gem:   String   # gem address
-  lot:   Float    # gem amount
-  pie:   String   # pie address
-  bid:   Float    # pie amount
-  block: Int      # block number
-  time:  Datetime # block timestamp
-  tx:    String   # transaction hash
+  id:     Int      # unique id
+  pair:   String   # pair hash
+  maker:  String   # msg.sender
+  lotGem: String   # lot gem address
+  lotAmt: Float    # lot amount
+  bidGem: String   # bid gem address
+  bidAmt: Float    # bid amount
+  block:  Int      # block number
+  time:   Datetime # block timestamp
+  tx:     String   # transaction hash
 }
 ```
 
 A `Trade` represents the matching of some portion of an `Offer` by msg.sender -
-`gal` for `bid` amount of `pie`. The appropriate amount of `gem` is transferred
-from Oasis to `gal` whilst `bid` amount of `pie` is transferred from `gal` to
-`guy`.  The corresponding `Offer` is updated with the new `lot` amount. Once an
-order has been fully matched (`lot` goes to zero), it is deleted.
+`taker` for `bid` amount of ERC20 `gem`. The appropriate amount of `gem` is
+transferred from Oasis to `taker` whilst `bid` amount of ERC20 `gem` is transferred
+from `taker` to the `maker`.  The corresponding `Offer` is updated with the new
+`lot` amount. Once an order has been fully matched (`lot` goes to zero), it is deleted.
 
 ```graphql
 type Trade {
-  id:    Int      # offer id (fk)
-  pair:  String   # pair hash
-  guy:   String   # maker
-  gem:   String   # gem address
-  lot:   Float    # gem amount
-  gal:   String   # taker
-  pie:   String   # pie address
-  bid:   Float    # pie amount
-  block: Int      # block number
-  time:  Datetime # block timestamp
-  tx:    String   # transaction hash
+  id:     Int      # unique id
+  pair:   String   # pair hash
+  maker:  String   # order maker
+  taker:  String   # msg.sender
+  lotGem: String   # lot gem address
+  lotAmt: Float    # lot amount
+  bidGem: String   # bid gem address
+  bidAmt: Float    # bid amount
+  block:  Int      # block number
+  time:   Datetime # block timestamp
+  tx:     String   # transaction hash
 }
 ```
 
@@ -49,11 +49,11 @@ type Query {
   getOffer(id: Int): {
     id
     pair
-    guy
-    gem
-    lot
-    pie
-    bid
+    maker
+    lotGem
+    lotAmt
+    bidGem
+    bidAmt
     block
     time
     tx
@@ -64,19 +64,19 @@ type Query {
     offer {
       id
       pair
-      guy
-      gem
-      lot
-      pie
-      bid
+      maker
+      lotGem
+      lotAmt
+      bidGem
+      bidAmt
     }
     pair
-    guy
-    gem
-    lot
-    gal
-    pie
-    bid
+    maker
+    taker
+    lotGem
+    lotAmt
+    bidGem
+    bidAmt
     block
     time
     tx
