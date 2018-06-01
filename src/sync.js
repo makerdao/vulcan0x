@@ -15,20 +15,22 @@ const syncDapp = (name) => {
 }
 
 const batchEventSync = (dapp, event, latestBlock) => {
-  const step = process.env.BATCH || 50000;
-  const first = dapp.info[chain.id].firstBlock;
-  const batches = (to, arr=[]) => {
-    arr.push({from: to-step, to: to })
-    if(to < first-step)
+  const step = parseInt(process.env.BATCH) || 50000;
+  const firstBlock = parseInt(dapp.info[chain.id].firstBlock);
+  const batches = (from, arr=[]) => {
+    arr.push({from: from, to: from+step })
+    if(latestBlock < from+step) {
+      arr.push({from: from, to: latestBlock});
       return arr;
-    else
-      return batches(to-step, arr);
+    } else
+      return batches(from+step, arr);
   }
   const contract = dapp.connect;
-  require('bluebird').map(batches(latestBlock), (o) => {
+  require('bluebird').map(batches(firstBlock), (o) => {
+    console.log(event.sig, o.from, o.to);
     return syncEvents(contract, event, o.from, o.to);
-  }, {concurrency: 1})
-  .then(() => console.log("batchSync complete"));
+  }, {concurrency: 2})
+  .then(() => console.log(event.sig, "batchSync complete"));
 }
 
 const syncEvents = (contract, event, from, to) => {

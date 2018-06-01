@@ -26,7 +26,11 @@ export const listen = (contract, config) => {
         console.log(e)
     })
     .on("data", (log) => fire(evnt, log))
-    .on("changed", (log) => console.log)
+    .on("changed", (log) => {
+      console.log("--------------------------------------")
+      console.log(log);
+      console.log("--------------------------------------")
+    })
     .on("error", console.log);
   }
 }
@@ -55,7 +59,8 @@ const runMutations = (event, data) => {
     const sql = template => t.any(template, data)
     return t.batch(R.map(sql, event.mutate))
     .then(p => {
-      console.log(event.sig, data);
+      // verbose logging
+      // console.log(event.sig, data);
       return p
     })
   })
