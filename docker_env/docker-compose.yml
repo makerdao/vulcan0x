@@ -23,11 +23,12 @@ services:
       bash -c "NODE_ENV=${NODE_ENV} npm run migrate"
     depends_on:
       - postgres
-    restart_policy:
-      condition: on-failure
-      delay: 15s
-      max_attempts: 3
-      window: 25s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 25s
 
   sync:
     image: makerdao/vulcan0x
@@ -40,11 +41,12 @@ services:
       bash -c "NODE_ENV=${NODE_ENV} npm run sync"
     depends_on:
       - migrate
-    restart_policy:
-      condition: on-failure
-      delay: 15s
-      max_attempts: 3
-      window: 25s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 25s
 
   subscribe:
     image: makerdao/vulcan0x
