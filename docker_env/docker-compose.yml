@@ -1,0 +1,78 @@
+version: "3.2"
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - kovan
+    ports:
+      - 5432:5432
+
+  migrate:
+    image: makerdao/vulcan0x
+    container_name: migrate
+    volumes:
+      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
+    networks:
+      - kovan
+    command: >
+      bash -c "NODE_ENV=${NODE_ENV} npm run migrate"
+    depends_on:
+      - postgres
+    restart_policy:
+      condition: on-failure
+      delay: 15s
+      max_attempts: 3
+      window: 25s
+
+  sync:
+    image: makerdao/vulcan0x
+    container_name: sync
+    volumes:
+      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
+    networks:
+      - kovan
+    command: >
+      bash -c "NODE_ENV=${NODE_ENV} npm run sync"
+    depends_on:
+      - migrate
+    restart_policy:
+      condition: on-failure
+      delay: 15s
+      max_attempts: 3
+      window: 25s
+
+  subscribe:
+    image: makerdao/vulcan0x
+    container_name: subscribe
+    volumes:
+      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
+    networks:
+      - kovan
+    command: >
+      bash -c "NODE_ENV=${NODE_ENV} npm run subscribe"
+    depends_on:
+      - postgres
+
+  graphql:
+    image: makerdao/vulcan0x
+    container_name: graphql
+    ports:
+      - 4000:4000
+    volumes:
+      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
+    networks:
+      - kovan
+    command: >
+      bash -c "NODE_ENV=${NODE_ENV} npm run graphql"
+    depends_on:
+      - postgres
+
+networks:
+  kovan:
+    external:
+      name: kovan

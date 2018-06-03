@@ -1,5 +1,7 @@
 /node_modules
 .DS_Store
 .env
+.vulcan0x-env
 package-lock.json
 npm-debug.log
+pgdata/
