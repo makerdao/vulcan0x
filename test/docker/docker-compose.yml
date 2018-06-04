@@ -3,6 +3,8 @@ services:
   postgres:
     image: postgres
     container_name: postgres
+    logging:
+      driver: "none"
     volumes:
       - $PWD/test-data:/docker-entrypoint-initdb.d/
     environment:
