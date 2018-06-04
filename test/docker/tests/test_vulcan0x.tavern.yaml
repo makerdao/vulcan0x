@@ -1,0 +1,14 @@
+---
+test_name: should return all offers, lot and bid ammount fields
+stages:
+  - name: test
+    request:
+      url: http://graphql:4000/v1
+      method: POST
+      json:
+        query: "{{ allOffers {{ edges {{ node {{ lotAmt, bidAmt }} }} }} }}"
+      headers:
+        content-type: application/json
+    response:
+      status_code: 200
+      body: {"data":{"allOffers":{"edges":[{"node":{"lotAmt":"0.1","bidAmt":"23.1"}},{"node":{"lotAmt":"1","bidAmt":"1"}},{"node":{"lotAmt":"1","bidAmt":"1"}},{"node":{"lotAmt":"0.01","bidAmt":"0.02"}},{"node":{"lotAmt":"1","bidAmt":"1"}},{"node":{"lotAmt":"5000","bidAmt":"8.333333333333334"}},{"node":{"lotAmt":"1","bidAmt":"1"}},{"node":{"lotAmt":"1","bidAmt":"11"}},{"node":{"lotAmt":"12","bidAmt":"10"}},{"node":{"lotAmt":"2000","bidAmt":"2.857142857142857"}},{"node":{"lotAmt":"1000","bidAmt":"2"}},{"node":{"lotAmt":"0.22","bidAmt":"0.2"}},{"node":{"lotAmt":"0.13","bidAmt":"0.1"}},{"node":{"lotAmt":"0.2","bidAmt":"0.38"}},{"node":{"lotAmt":"0.1","bidAmt":"0.18"}},{"node":{"lotAmt":"0.1","bidAmt":"0.19"}},{"node":{"lotAmt":"0.2","bidAmt":"0.36"}},{"node":{"lotAmt":"0.2","bidAmt":"0.36"}},{"node":{"lotAmt":"0.18","bidAmt":"0.1"}},{"node":{"lotAmt":"0.04583333333333333","bidAmt":"0.055"}},{"node":{"lotAmt":"0.12","bidAmt":"0.1"}},{"node":{"lotAmt":"0.11","bidAmt":"0.1"}},{"node":{"lotAmt":"1","bidAmt":"112"}},{"node":{"lotAmt":"0.3","bidAmt":"171.3"}},{"node":{"lotAmt":"1","bidAmt":"12"}},{"node":{"lotAmt":"1","bidAmt":"21"}},{"node":{"lotAmt":"1","bidAmt":"21"}},{"node":{"lotAmt":"1","bidAmt":"112"}},{"node":{"lotAmt":"1","bidAmt":"31"}},{"node":{"lotAmt":"0.065","bidAmt":"0.05"}},{"node":{"lotAmt":"0.04583333333333333","bidAmt":"0.055"}},{"node":{"lotAmt":"0.065","bidAmt":"0.05"}},{"node":{"lotAmt":"11","bidAmt":"11"}},{"node":{"lotAmt":"1","bidAmt":"1"}},{"node":{"lotAmt":"0.053331336666666666","bidAmt":"0.5333133666666666"}},{"node":{"lotAmt":"5","bidAmt":"0.01"}}]}}}
