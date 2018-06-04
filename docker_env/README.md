@@ -2,6 +2,15 @@
 
 #### Setup
 
+######Prerequisite:
+You can attach current stack to an existing ethereum node or to an local synced one.
+You can easily start your own ethereum node locally from Docker images by running:
+- for Kovan (parity) node:  
+`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.local -p 8546:8546 -p 8545:8545 -p 30303:30303 parity/parity --chain kovan --ws-port=8546 --ws-interface=all --ws-origins=all`
+
+- for Mainnet node:  
+`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.ethereum -p 8546:8546 -p 8545:8545 -p 30303:30303 ethereum/client-go --syncmode fast --ws --wsport 8546 --wsaddr 0.0.0.0 --wsorigins "\*" --wsapi "eth,web3,shh"`
+
 Docker environment starts following services (on the same machine or on targeted
 machine in case specified):
 - PostgreSQL database
@@ -55,3 +64,10 @@ To check for updates and apply them on an running environment:
 ```
 ./update.sh
 ```
+
+#### Other useful commands
+- connect to psql command line: `docker exec -it postgres psql -U vulcan0xadmin vulcan0xdb`
+- dump PostgreSQL data: `docker exec -u postgres postgres pg_dumpall -c > dump.sql`
+- display all services and their status: `docker ps -a`
+- see service logs: `docker logs -f postgres|sync|graphql|subscribe|migrate`
+- restart service: `docker restart postgres|sync|graphql|subscribe|migrate`
