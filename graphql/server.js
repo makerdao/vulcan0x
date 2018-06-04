@@ -14,7 +14,6 @@ app.set('views', 'graphql/views');
 // Display a page at the subdomain root
 app.get('/', (req, res) => res.render('index.html'))
 
-// Configure api routes
 const graphqlConfig = {
   graphiql: true,
   graphqlRoute: '/v1',
@@ -23,6 +22,8 @@ const graphqlConfig = {
   enableCors: true
 }
 
+const schemas = [ 'oasis' ]
+
 const limiter = new RateLimit({
   windowMs: 1*60*1000, // 1 minute
   max: 30,             // 30 requests per IP
@@ -30,7 +31,7 @@ const limiter = new RateLimit({
   delayMs: 100         // by 1 second
 });
 
-app.use(postgraphile(config.db, 'public', graphqlConfig))
+app.use(postgraphile(config.db, schemas, graphqlConfig))
 
 app.listen(config.port);
 console.log(`Running a GraphQL API server at localhost:${config.port}`)

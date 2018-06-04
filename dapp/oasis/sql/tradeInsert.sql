@@ -1,5 +1,5 @@
-INSERT INTO trade (
-  id,
+INSERT INTO oasis.trade (
+  offer_id,
   pair,
   maker,
   taker,

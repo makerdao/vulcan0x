@@ -1,3 +1,3 @@
-UPDATE offer
-SET killed = true
+UPDATE oasis.offer
+SET killed = ${block}
 WHERE id = ${id};

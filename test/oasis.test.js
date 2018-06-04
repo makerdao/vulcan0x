@@ -25,7 +25,8 @@ describe('LogMake Event', () => {
       lot_gem: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
       lot_amt: 24,
       bid_gem: "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359",
-      bid_amt: 18404.064
+      bid_amt: 18404.064,
+      removed: false
     });
   });
 

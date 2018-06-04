@@ -1,4 +1,4 @@
-INSERT INTO offer (
+INSERT INTO oasis.offer (
   id,
   pair,
   maker,
@@ -6,6 +6,7 @@ INSERT INTO offer (
   lot_amt,
   bid_gem,
   bid_amt,
+  removed,
   block,
   time,
   tx
@@ -18,6 +19,7 @@ VALUES (
   ${lot_amt},
   ${bid_gem},
   ${bid_amt},
+  ${removed},
   ${block},
   to_timestamp(${time}),
   ${tx}
