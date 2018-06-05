@@ -5,8 +5,7 @@ services:
 before_install:
 - docker build -t makerdao/vulcan0x .
 script:
-# - "./test.sh"
-- echo "Add tests here!!!"
+ - "./test.sh"
 deploy:
   provider: script
   script: bash docker_push.sh
