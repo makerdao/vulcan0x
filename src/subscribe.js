@@ -1,5 +1,6 @@
 import dapps from './dapps';
 import { contract, listen } from './contract';
+const argv = require('yargs').argv;
 
 const subscribe = (name) => {
   console.log("Subscribe:", name)
@@ -7,4 +8,8 @@ const subscribe = (name) => {
   listen(dapp.connect, dapp.config);
 }
 
-dapps.forEach(subscribe);
+if (argv.dapp) {
+  subscribe('dapp/'+argv.dapp)
+} else {
+  dapps.forEach(subscribe);
+}

@@ -19,7 +19,8 @@
     "postgraphile-plugin-connection-filter": "^1.0.0-beta.9",
     "postgres-migrations": "^2.0.1",
     "ramda": "^0.25.0",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "yargs": "^11.0.0"
   },
   "scripts": {
     "migrate": "babel-node src/migrate.js",

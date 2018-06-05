@@ -44,4 +44,11 @@ const syncEvents = (contract, event, from, to) => {
   .catch(e => console.log(e));
 }
 
-dapps.forEach(syncDapp);
+const argv = require('yargs').argv;
+
+if (argv.dapp) {
+  syncDapp('dapp/'+argv.dapp)
+} else {
+  dapps.forEach(syncDapp);
+}
+

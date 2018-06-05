@@ -6,7 +6,7 @@ Reflect a GraphQL schema over the Postgres schema and serve via express.
 
 Specify transformations for watched contracts at `dapp/{contract}`
 
-#### Setup
+### Setup
 
 The application expects a `.env` file in the root directory containing
 connection details for as many environments as required:
@@ -38,7 +38,7 @@ TEST_PGPORT=5432
 TEST_PGDATABASE=database
 ```
 
-#### Usage
+### Usage
 
 Note: the required environment should be specified by setting `NODE_ENV`:
 
@@ -46,15 +46,19 @@ Note: the required environment should be specified by setting `NODE_ENV`:
 
 Ad-hoc commands:
 
-```
-npm run migrate - run pending database migrations
-npm run sync - sync log event history from the blockchain to postgres
-npm test - run the test suite
-```
+* `npm run migrate` - run pending database migrations
+* `npm run sync` - sync log event history from the blockchain to postgres
+* `npm test` - run the test suite
 
 Running processes:
 
-```
-npm run subscribe - subscribe to new log events on watched contracts
-npm run graphql - run the graphql server over localhost
-```
+`npm run subscribe` - subscribe to new log events on all watched contracts
+`npm run graphql` - run the graphql server over localhost
+
+Options:
+
+The `sync` and `subscribe` commands can be used without options to run against
+all contracts in the `dapp` folder or with the `--dapp` flag to run against a
+particular contract.
+
+`NODE_ENV=develop npm run sync -- --dapp=oasis`
