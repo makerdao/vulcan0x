@@ -22,8 +22,7 @@ const make = {
       lot_gem: log.returnValues.pay_gem,
       bid_gem: log.returnValues.buy_gem,
       lot_amt: wad(log.returnValues.pay_amt),
-      bid_amt: wad(log.returnValues.buy_amt),
-      removed: log.removed
+      bid_amt: wad(log.returnValues.buy_amt)
     }
   },
   mutate: [sql("dapp/oasis/sql/offerInsert")]

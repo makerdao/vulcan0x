@@ -24,5 +24,5 @@ VALUES (
   to_timestamp(${time}),
   ${tx}
 )
-ON CONFLICT ( id )
-DO NOTHING
+ON CONFLICT ( tx )
+DO UPDATE SET removed = ${removed}

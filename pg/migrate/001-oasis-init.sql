@@ -12,7 +12,7 @@ CREATE TABLE oasis.offer (
   killed     integer default 0,
   block      integer not null,
   time       timestamptz not null,
-  tx         character varying(66) not null
+  tx         character varying(66) unique not null
 );
 
 COMMENT ON COLUMN oasis.offer.id is 'Unique offer identifier';
@@ -30,6 +30,7 @@ COMMENT ON COLUMN oasis.offer.tx is 'Transaction hash';
 CREATE INDEX oasis_offer_pair_index ON oasis.offer(pair);
 CREATE INDEX oasis_offer_maker_index ON oasis.offer(maker);
 CREATE INDEX oasis_offer_killed_index ON oasis.offer(killed);
+CREATE INDEX oasis_offer_removed_index ON oasis.offer(removed);
 
 CREATE TABLE oasis.trade (
   offer_id   integer,
@@ -40,6 +41,7 @@ CREATE TABLE oasis.trade (
   taker      character varying(66),
   bid_gem    character varying(66),
   bid_amt    decimal,
+  removed    boolean,
   block      integer not null,
   time       timestamptz not null,
   tx         character varying(66) unique not null
@@ -63,3 +65,4 @@ CREATE INDEX oasis_trade_lot_gem_index ON oasis.trade(lot_gem);
 CREATE INDEX oasis_trade_bid_gem_index ON oasis.trade(bid_gem);
 CREATE INDEX oasis_trade_maker_index ON oasis.trade(maker);
 CREATE INDEX oasis_trade_taker_index ON oasis.trade(taker);
+CREATE INDEX oasis_trade_removed_index ON oasis.trade(removed);

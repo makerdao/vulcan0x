@@ -26,11 +26,7 @@ export const listen = (contract, config) => {
         console.log(e)
     })
     .on("data", (log) => fire(evnt, log))
-    .on("changed", (log) => {
-      console.log("--------------------------------------")
-      console.log(log);
-      console.log("--------------------------------------")
-    })
+    .on("changed", (log) => fire(evnt, log))
     .on("error", console.log);
   }
 }
@@ -49,7 +45,8 @@ const getBlock = (log) => {
     return {
       block: log.blockNumber,
       tx: log.transactionHash,
-      time: block.timestamp
+      time: block.timestamp,
+      removed: log.removed
     }
   })
 }

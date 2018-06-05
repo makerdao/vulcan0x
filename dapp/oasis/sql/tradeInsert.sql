@@ -7,6 +7,7 @@ INSERT INTO oasis.trade (
   bid_gem,
   lot_amt,
   bid_amt,
+  removed,
   block,
   time,
   tx
@@ -20,9 +21,10 @@ VALUES (
   ${bid_gem},
   ${lot_amt},
   ${bid_amt},
+  ${removed},
   ${block},
   to_timestamp(${time}),
   ${tx}
 )
 ON CONFLICT ( tx )
-DO NOTHING
+DO UPDATE SET removed = ${removed}
