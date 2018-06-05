@@ -22,7 +22,7 @@
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "migrate": "babel-node bin/migrate.js",
+    "migrate": "babel-node src/migrate.js",
     "subscribe": "babel-node src/subscribe.js",
     "sync": "babel-node src/sync.js",
     "graphql": "babel-node graphql/server.js",

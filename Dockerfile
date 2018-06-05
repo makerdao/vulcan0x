@@ -1,6 +1,5 @@
 FROM node
 
-COPY bin /opt/vulcan0x/bin
 COPY dapp /opt/vulcan0x/dapp
 COPY graphql /opt/vulcan0x/graphql
 COPY pg /opt/vulcan0x/pg
