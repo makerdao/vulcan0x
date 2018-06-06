@@ -28,20 +28,17 @@ machine in case specified):
 - migrate and sync task
 - subscribe and graphql processes
 
-For starting environment - place a `.env` file in `docker_env` directory containing
-PostgreSQL configuration details,  e.g `docker_env/.env`
+For starting environment:
+- `git clone https://github.com/makerdao/vulcan0x.git`
+- add `.env` file in `vulcan0x/docker_env` directory containing
+PostgreSQL configuration details,  e.g `docker_env/.env`:
 ```
 POSTGRES_DB=vulcan0xdb
 POSTGRES_USER=vulcan0xadmin
 POSTGRES_PASSWORD=vulcan0xadminchangepassword
 ```
-and a `.vulcan0x-env` file in same `docker_env` directory containing
-connection details for vulcan0x (should match PostgreSQL configuration from  `.env` file).
-Valid environments are `mainnet`, `kovan`, `develop` and `test`.
-
-(see `config.js` for additional context)
-
-e.g `docker_env/.vulcan0x-env`
+- add `.vulcan0x-env` file in same `vulcan0x/docker_env` directory containing
+connection details for vulcan0x (should match PostgreSQL configuration from  `.env` file) e.g `docker_env/.vulcan0x-env`
 ```
 KOVAN_PGHOST=postgres
 KOVAN_PGUSER=vulcan0xadmin
@@ -50,12 +47,16 @@ KOVAN_PGPORT=5432
 KOVAN_PGDATABASE=vulcan0xdb
 KOVAN_PROVIDER=ws://eth-node:8546
 ```
+Valid environments are `mainnet`, `kovan`, `develop` and `test`.
+(see `config.js` for additional context)
 
 #### Usage
 
 Note: the required environment should be specified by exporting `NODE_ENV` as an environment variable before running scripts:
 
 `export NODE_ENV=kovan`
+or
+`export NODE_ENV=mainnet`
 
 Starting environment (that is starting all services:
 PostgreSQL database, migrate and sync tasks, subscribe and graphql processes):
