@@ -9,7 +9,7 @@ services:
       - ./pgdata:/var/lib/postgresql/data
       - ./../pg/migrate:/docker-entrypoint-initdb.d/
     networks:
-      - kovan
+      - eth-net
     ports:
       - 5432:5432
 
@@ -19,7 +19,7 @@ services:
     volumes:
       - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
     networks:
-      - kovan
+      - eth-net
     command: >
       bash -c "NODE_ENV=${NODE_ENV} npm run migrate"
     depends_on:
@@ -37,7 +37,7 @@ services:
     volumes:
       - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
     networks:
-      - kovan
+      - eth-net
     command: >
       bash -c "NODE_ENV=${NODE_ENV} npm run sync"
     depends_on:
@@ -55,7 +55,7 @@ services:
     volumes:
       - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
     networks:
-      - kovan
+      - eth-net
     command: >
       bash -c "NODE_ENV=${NODE_ENV} npm run subscribe"
     depends_on:
@@ -69,13 +69,13 @@ services:
     volumes:
       - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
     networks:
-      - kovan
+      - eth-net
     command: >
       bash -c "NODE_ENV=${NODE_ENV} npm run graphql"
     depends_on:
       - postgres
 
 networks:
-  kovan:
+  eth-net:
     external:
-      name: kovan
+      name: eth-net

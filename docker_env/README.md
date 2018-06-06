@@ -2,14 +2,25 @@
 
 #### Setup
 
-######Prerequisite:
+###### Prerequisite:
+
+Install Docker: https://docs.docker.com/install/#server
+
+Install docker-compose: https://docs.docker.com/compose/install/#install-compose
+
 You can attach current stack to an existing ethereum node or to an local synced one.
 You can easily start your own ethereum node locally from Docker images by running:
 - for Kovan (parity) node:  
 `docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.local -p 8546:8546 -p 8545:8545 -p 30303:30303 parity/parity --chain kovan --ws-port=8546 --ws-interface=all --ws-origins=all`
 
 - for Mainnet node:  
-`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.ethereum -p 8546:8546 -p 8545:8545 -p 30303:30303 ethereum/client-go --syncmode fast --ws --wsport 8546 --wsaddr 0.0.0.0 --wsorigins "*" --wsapi "eth,web3,shh"`
+`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.ethereum -p 8546:8546 -p 8545:8545 -p 30303:30303 ethereum/client-go --syncmode fast --ws --wsport 8546 --wsaddr 0.0.0.0 --wsorigins "*" --wsapi "eth,web3,shh"`  
+
+If you start node from Docker image you have to create a network and connect node to it (vulcan0x stack will use same network):
+```
+docker network create eth-net
+docker network connect eth-net eth-node
+```
 
 Docker environment starts following services (on the same machine or on targeted
 machine in case specified):
