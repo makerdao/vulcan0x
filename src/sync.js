@@ -15,7 +15,7 @@ const syncDapp = (name) => {
 }
 
 const batchEventSync = (dapp, event, latestBlock) => {
-  const step = parseInt(process.env.BATCH) || 50000;
+  const step = parseInt(process.env.BATCH) || 2000;
   const firstBlock = parseInt(dapp.info[chain.id].firstBlock);
   const batches = (from, arr=[]) => {
     arr.push({from: from, to: from+step })
