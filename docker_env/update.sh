@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-docker-compose pull && docker-compose restart
+docker-compose down
+docker rmi makerdao/vulcan0x
+docker-compose up
