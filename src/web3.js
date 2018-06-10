@@ -1,6 +1,6 @@
 import { chain, db } from '../config';
 
-console.log("env:", process.env.NODE_ENV);
+console.log("env:", process.env.ENV);
 console.log("chain", chain);
 console.log("database: postgres://", db.user, "@", db.host);
 

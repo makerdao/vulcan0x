@@ -1,82 +1,34 @@
-require('dotenv').config()
+const { join } = require('path')
+const fs = require('fs')
+const env = process.env.ENV || '.env';
 
-const mainnet = {
+if (fs.existsSync(env)) {
+  require('dotenv').config({path: env})
+} else if (fs.existsSync(join(process.cwd(), env))) {
+  require('dotenv').config({path: join(process.cwd(), env)})
+} else {
+  console.log(env, 'file not found')
+  process.exit()
+}
+
+const pgSSL = process.env.POSTGRES_SSL == 'true' || false
+
+const config = {
  chain: {
-   id: 'mainnet',
-   provider: process.env.MAINNET_PROVIDER || 'wss://mainnet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
  },
  db: {
-   user: process.env.MAINNET_PGUSER,
-   password: process.env.MAINNET_PGPASSWORD,
-   host: process.env.MAINNET_PGHOST,
-   port: parseInt(process.env.MAINNET_PGPORT),
-   database: process.env.MAINNET_PGDATABASE,
-   ssl: false
+   user: process.env.POSTGRES_USER,
+   password: process.env.POSTGRES_PASSWORD,
+   host: process.env.POSTGRES_HOST || 'localhost',
+   port: parseInt(process.env.POSTGRES_PORT) || 5432,
+   database: process.env.POSTGRES_DB || 'vulcan0x_default',
+   ssl: pgSSL
  },
  express: {
    port: 4000,
-   db: `postgres:\/\/${process.env.MAINNET_PGUSER}:${process.env.MAINNET_PGPASSWORD}@${process.env.MAINNET_PGHOST}:${process.env.MAINNET_PGPORT}/${process.env.MAINNET_PGDATABASE}?ssl=false`
+   db: `postgres:\/\/${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}?ssl=${pgSSL}`
  }
 };
-
-const kovan = {
- chain: {
-   id: 'kovan',
-   provider: process.env.KOVAN_PROVIDER || 'ws://localhost:8546'
- },
- db: {
-   user: process.env.KOVAN_PGUSER,
-   password: process.env.KOVAN_PGPASSWORD,
-   host: process.env.KOVAN_PGHOST,
-   port: parseInt(process.env.KOVAN_PGPORT),
-   database: process.env.KOVAN_PGDATABASE,
-   ssl: false
- },
- express: {
-   port: 4000,
-   db: `postgres:\/\/${process.env.KOVAN_PGUSER}:${process.env.KOVAN_PGPASSWORD}@${process.env.KOVAN_PGHOST}:${process.env.KOVAN_PGPORT}/${process.env.KOVAN_PGDATABASE}?ssl=false`
- }
-};
-
-const develop = {
- chain: {
-   id: 'mainnet',
-   provider: process.env.TEST_PROVIDER || 'wss://mainnet.infura.io/_ws'
- },
- db: {
-   user: process.env.DEVELOP_PGUSER,
-   password: process.env.DEVELOP_PGPASSWORD,
-   host: process.env.DEVELOP_PGHOST,
-   port: parseInt(process.env.DEVELOP_PGPORT),
-   database: process.env.DEVELOP_PGDATABASE,
-   ssl: false
- },
- express: {
-   port: 4000,
-   db: `postgres:\/\/${process.env.DEVELOP_PGUSER}:${process.env.DEVELOP_PGPASSWORD}@${process.env.DEVELOP_PGHOST}:${process.env.DEVELOP_PGPORT}/${process.env.DEVELOP_PGDATABASE}?ssl=false`
- }
-};
-const test = {
- chain: {
-   id: 'mainnet',
-   provider: process.env.TEST_PROVIDER || 'wss://mainnet.infura.io/_ws'
- },
- db: {
-   user: process.env.TEST_PGUSER,
-   password: process.env.TEST_PGPASSWORD,
-   host: process.env.TEST_PGHOST,
-   port: parseInt(process.env.TEST_PGPORT),
-   database: process.env.TEST_PGDATABASE,
-   ssl: false
- },
- express: {
-   port: 4000,
-   db: `postgres:\/\/${process.env.TEST_PGUSER}:${process.env.TEST_PGPASSWORD}@${process.env.TEST_PGHOST}:${process.env.TEST_PGPORT}/${process.env.TEST_PGDATABASE}?ssl=false`
- }
-};
-
-const env = process.env.NODE_ENV || 'develop';
-const envs = { mainnet, kovan, develop, test }
-const config = envs[env];
 
 module.exports = config;
