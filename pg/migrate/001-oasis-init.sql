@@ -12,7 +12,7 @@ CREATE TABLE oasis.offer (
   killed     integer default 0,
   block      integer not null,
   time       timestamptz not null,
-  tx         character varying(66) unique not null
+  tx         character varying(66) not null
 );
 
 COMMENT ON COLUMN oasis.offer.id is 'Unique offer identifier';
