@@ -16,14 +16,14 @@ const pgSSL = process.env.POSTGRES_SSL == 'true' || false
 const config = {
  chain: {
    provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws',
-   id: process.env.ETH_ID || 'test'
+   id: process.env.ETH_CHAIN || 'kovan'
  },
  db: {
    user: process.env.POSTGRES_USER,
    password: process.env.POSTGRES_PASSWORD,
    host: process.env.POSTGRES_HOST || 'localhost',
    port: parseInt(process.env.POSTGRES_PORT) || 5432,
-   database: process.env.POSTGRES_DB || 'vulcan0x_default',
+   database: process.env.POSTGRES_DB || 'vulcan0x_kovan',
    ssl: pgSSL
  },
  express: {

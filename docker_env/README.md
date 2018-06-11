@@ -9,11 +9,11 @@ Install Docker: https://docs.docker.com/install/#server
 Install docker-compose: https://docs.docker.com/compose/install/#install-compose
 
 You can easily start your own ethereum node locally from Docker images by running:
-- for Kovan (parity) node:  
+- for Kovan (parity) node:
 `docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.local -p 8546:8546 -p 8545:8545 -p 30303:30303 parity/parity --chain kovan --ws-port=8546 --ws-interface=all --ws-origins=all`
 
-- for Mainnet node:  
-`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.ethereum -p 8546:8546 -p 8545:8545 -p 30303:30303 ethereum/client-go --syncmode fast --ws --wsport 8546 --wsaddr 0.0.0.0 --wsorigins "*" --wsapi "eth,web3,shh"`  
+- for Mainnet node:
+`docker run -d -it --name eth-node --restart always -v ~/eth-data:/root/.ethereum -p 8546:8546 -p 8545:8545 -p 30303:30303 ethereum/client-go --syncmode fast --ws --wsport 8546 --wsaddr 0.0.0.0 --wsorigins "*" --wsapi "eth,web3,shh"`
 
 ##### Configuration:
 
@@ -34,7 +34,7 @@ POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
 POSTGRES_DB=database
 ETH_PROVIDER=ws://192.168.1.78:8546
-ETH_ID=kovan
+ETH_CHAIN=kovan
 ```
 Postgres and etehereum configurations can point to either local or remote deployments
 
