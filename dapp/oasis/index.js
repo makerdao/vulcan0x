@@ -35,11 +35,11 @@ const take = {
       id: id(log.returnValues.id),
       pair: log.returnValues.pair,
       maker: log.returnValues.maker,
-      lot_gem: log.returnValues.buy_gem,
-      bid_gem: log.returnValues.pay_gem,
+      lot_gem: log.returnValues.pay_gem,
+      bid_gem: log.returnValues.buy_gem,
       taker: log.returnValues.taker,
-      lot_amt: wad(log.returnValues.give_amt),
-      bid_amt: wad(log.returnValues.take_amt)
+      lot_amt: wad(log.returnValues.take_amt),
+      bid_amt: wad(log.returnValues.give_amt)
     }
   },
   mutate: [sql("dapp/oasis/sql/tradeInsert")]
