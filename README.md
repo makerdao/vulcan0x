@@ -20,7 +20,8 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_DB=database
 
-ETHEREUM_PROVIDER=ws://localhost:8546
+ETH_PROVIDER=ws://localhost:8546
+ETH_ID=kovan
 ```
 
 Alternate configurations can be specified by setting `ENV` when invoking scripts:

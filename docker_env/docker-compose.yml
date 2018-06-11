@@ -4,24 +4,21 @@ services:
     image: postgres
     container_name: postgres
     env_file:
-      - .env
+      - $ENV_FILE
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - ./../pg/migrate:/docker-entrypoint-initdb.d/
-    networks:
-      - eth-net
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   migrate:
     image: makerdao/vulcan0x
     container_name: migrate
     volumes:
-      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
-    networks:
-      - eth-net
+      - $ENV_FILE:/opt/vulcan0x/.env
+      - ./../src:/opt/vulcan0x/src
     command: >
-      bash -c "NODE_ENV=${NODE_ENV} npm run migrate"
+      bash -c "ENV=/opt/vulcan0x/.env npm run migrate"
     depends_on:
       - postgres
     deploy:
@@ -35,11 +32,10 @@ services:
     image: makerdao/vulcan0x
     container_name: sync
     volumes:
-      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
-    networks:
-      - eth-net
+      - $ENV_FILE:/opt/vulcan0x/.env
+      - ./../src:/opt/vulcan0x/src
     command: >
-      bash -c "NODE_ENV=${NODE_ENV} npm run sync"
+      bash -c "ENV=/opt/vulcan0x/.env npm run sync"
     depends_on:
       - postgres
     deploy:
@@ -53,11 +49,10 @@ services:
     image: makerdao/vulcan0x
     container_name: subscribe
     volumes:
-      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
-    networks:
-      - eth-net
+      - $ENV_FILE:/opt/vulcan0x/.env
+      - ./../src:/opt/vulcan0x/src
     command: >
-      bash -c "NODE_ENV=${NODE_ENV} npm run subscribe"
+      bash -c "ENV=/opt/vulcan0x/.env npm run subscribe"
     depends_on:
       - postgres
 
@@ -67,15 +62,9 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - $PWD/.vulcan0x-env:/opt/vulcan0x/.env
-    networks:
-      - eth-net
+      - $ENV_FILE:/opt/vulcan0x/.env
+      - ./../graphql:/opt/vulcan0x/graphql
     command: >
-      bash -c "NODE_ENV=${NODE_ENV} npm run graphql"
+      bash -c "ENV=/opt/vulcan0x/.env npm run graphql"
     depends_on:
       - postgres
-
-networks:
-  eth-net:
-    external:
-      name: eth-net

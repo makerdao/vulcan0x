@@ -15,7 +15,8 @@ const pgSSL = process.env.POSTGRES_SSL == 'true' || false
 
 const config = {
  chain: {
-   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws'
+   provider: process.env.ETH_PROVIDER || 'wss://mainnet.infura.io/_ws',
+   id: process.env.ETH_ID || 'test'
  },
  db: {
    user: process.env.POSTGRES_USER,
