@@ -33,19 +33,20 @@ export const listen = (contract, config) => {
 
 // Run mutations when an event fires
 export const fire = (event, log) => {
-  return getBlock(log).then(block => {
-    return Object.assign(event.transform(log), block)
+  return blockMeta(log).then(meta => {
+    return Object.assign(event.transform(log), meta)
   })
   .then(data => { return runMutations(event, data) })
   .catch(e => console.log(e));
 }
 
-const getBlock = (log) => {
+const blockMeta = (log) => {
   return web3.eth.getBlock(log.blockNumber).then(block => {
+    const ts = ( block ) ? block.timestamp : log.returnValues.timestamp;
     return {
       block: log.blockNumber,
       tx: log.transactionHash,
-      time: block.timestamp,
+      time: ts,
       removed: log.removed
     }
   })
