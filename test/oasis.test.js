@@ -49,8 +49,8 @@ describe('LogTake Event', () => {
       bid_gem: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
       lot_gem: "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359",
       taker:   "0x004075e4D4b1ce6c48c81CC940e2bad24B489e64",
-      lot_amt: 5,
-      bid_amt: 3760
+      lot_amt: 3760,
+      bid_amt: 5
     });
   });
 
