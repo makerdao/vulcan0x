@@ -58,7 +58,7 @@ const runMutations = (event, data) => {
     return t.batch(R.map(sql, event.mutate))
     .then(p => {
       // verbose logging
-      // console.log(event.sig, data);
+      console.log(event.sig, data);
       return p
     })
   })
