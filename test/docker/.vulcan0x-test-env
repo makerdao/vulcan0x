@@ -1,5 +1,0 @@
-KOVAN_PGHOST=postgres
-KOVAN_PGUSER=vulcan0xadmin
-KOVAN_PGPASSWORD=vulcan0xadminchangepassword
-KOVAN_PGPORT=5432
-KOVAN_PGDATABASE=vulcan0xdb

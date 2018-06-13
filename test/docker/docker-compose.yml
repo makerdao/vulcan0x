@@ -18,9 +18,9 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - $PWD/.vulcan0x-test-env:/opt/vulcan0x/.env
+      - $PWD/test-env:/opt/vulcan0x/.env
     command: >
-      bash -c "sleep 5 && NODE_ENV=kovan npm run graphql"
+      bash -c "sleep 5 && ENV=/opt/vulcan0x/.env npm run graphql"
     depends_on:
       - postgres
 
