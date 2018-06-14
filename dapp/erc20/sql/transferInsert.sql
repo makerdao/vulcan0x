@@ -1,4 +1,4 @@
-INSERT INTO erc20.trade (
+INSERT INTO erc20.transfer (
   gem,
   src,
   dst,

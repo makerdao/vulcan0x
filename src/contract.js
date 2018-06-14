@@ -34,7 +34,14 @@ export const listen = (contract, config) => {
 // Run mutations when an event fires
 export const fire = (event, log, contract) => {
   return blockMeta(log).then(meta => {
-    return Object.assign(event.transform(log, contract), meta)
+    try {
+      return event.transform(log, contract).then(log => {
+        return Object.assign(log, meta)
+      })
+    }
+    catch(e) {
+      return Object.assign(event.transform(log, contract), meta)
+    }
   })
   .then(data => { return runMutations(event, data) })
   .catch(e => console.log(e));

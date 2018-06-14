@@ -1,5 +1,6 @@
 import {sql} from '../../src/db';
 import {wad, id} from '../../src/util';
+import web3 from '../../src/web3';
 const argv = require('yargs').argv;
 
 export const info = {
@@ -12,17 +13,18 @@ export const info = {
 const transfer = {
   sig: "Transfer",
   transform: function(log, contract) {
-    return getBalances(contract, log.returnValues.from, log.returnValues.to)
-    .then(amt => {
-        return {
-          gem:    info.mainnet.address,
-          src:    log.returnValues.from,
-          srcAmt: amt.src,
-          dst:    log.returnValues.to,
-          dstAmt: amt.dst,
-          val:    log.returnValues.value,
-          data:   null
-        }
+    return getState(contract, log.returnValues.from, log.returnValues.to)
+    .then(state => {
+      return {
+        gem:  info.mainnet.address,
+        src:  log.returnValues.from,
+        srcB: state.srcBalance,
+        srcC: (state.srcData == '0x') ? false : true,
+        dst:  log.returnValues.to,
+        dstB: state.dstBalance,
+        dstC: (state.dstData == '0x') ? false : true,
+        amt:  wad(log.returnValues.value, `1e8`),
+      }
     })
   },
   mutate: [
@@ -32,15 +34,19 @@ const transfer = {
   ]
 }
 
-const getBalances = (contract, src, dst) => {
-  return contract.methods.balanceOf(src).call()
-  .then(srcAmt => {
-    return contract.methods.balanceOf(dst).call()
-    .then(dstAmt => {
-      return {
-        src: wad(srcAmt, `1e8`),
-        dst: wad(dstAmt, `1e8`)
-      }
+const getState = (contract, src, dst) => {
+  return contract.methods.balanceOf(src).call().then(srcAmt => {
+    return contract.methods.balanceOf(dst).call().then(dstAmt => {
+      return web3.eth.getCode(src).then(srcData => {
+        return web3.eth.getCode(dst).then(dstData => {
+          return {
+            srcBalance: wad(srcAmt, `1e8`),
+            dstBalance: wad(dstAmt, `1e8`),
+            srcData: srcData,
+            dstData: dstData
+          }
+        })
+      })
     })
   })
 }
