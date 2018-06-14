@@ -1,12 +1,12 @@
 ## Oasis GraphQL
 
 An `Offer` represents a transaction created by msg.sender - `maker` to offer
-the exchange `lotAmt` of ERC20 `lotGem` for `bidAmt` of ERC20 `gem`. When an
-offer is made the specified amount of offered `lotGem` is transferred from the
-`maker` to the Oasis liquidity pool.
+the exchange of `lotAmt` of ERC20 `lotGem` for `bidAmt` of ERC20 `bidGem`. When
+an offer is made the specified amount of offered `lotGem` is transferred from
+the `maker` to the Oasis liquidity pool.
 
 ```graphql
-type Offer {
+type oasis.Offer {
   id:       Int      # unique id
   pair:     String   # e.g WETH/DAI
   pairHash: String   # keccak256(lotGem, bidGem)
@@ -29,7 +29,7 @@ A `Trade` represents the matching of some portion of an `Offer` by msg.sender -
 of ERC20 `bidGem` is transferred from `taker` to the `maker`.
 
 ```graphql
-type Trade {
+type oasis.Trade {
   offerId:  Int      # unique id
   pair:     String   # e.g WETH/DAI
   pairHash: String   # keccak256(lotGem, bidGem)
@@ -52,7 +52,7 @@ Query API
 ```graphql
 type Query {
 
-  allOffers(filters: {}): [{
+  allOasisOffers(filters: {}): [{
     id
     pair
     pairHash
@@ -69,7 +69,7 @@ type Query {
     trades [Trade]
   }]
 
-  allTrades(filters: {}): [{
+  allOasisTrades(filters: {}): [{
     offer_id
     pair
     pairHash
