@@ -40,7 +40,7 @@ const syncEvents = (contract, event, from, to) => {
     filter: event.filters || {}
   }
   return contract.getPastEvents(event.sig, options)
-  .then(logs => logs.forEach(log => fire(event, log)))
+  .then(logs => logs.forEach(log => fire(event, log, contract)))
   .catch(e => console.log(e));
 }
 

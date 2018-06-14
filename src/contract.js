@@ -25,16 +25,16 @@ export const listen = (contract, config) => {
       if (e)
         console.log(e)
     })
-    .on("data", (log) => fire(evnt, log))
-    .on("changed", (log) => fire(evnt, log))
+    .on("data", (log) => fire(evnt, log, contract))
+    .on("changed", (log) => fire(evnt, log, contract))
     .on("error", console.log);
   }
 }
 
 // Run mutations when an event fires
-export const fire = (event, log) => {
+export const fire = (event, log, contract) => {
   return blockMeta(log).then(meta => {
-    return Object.assign(event.transform(log), meta)
+    return Object.assign(event.transform(log, contract), meta)
   })
   .then(data => { return runMutations(event, data) })
   .catch(e => console.log(e));

@@ -17,9 +17,11 @@ type erc20.Transfer {
 Balances
 
 ```graphql
-type erc20.Balance {
+type erc20.Address {
   gem:   String   # ERC20 token address
+  guy:   String   # account
   amt:   Decimal  # amount
+  data:  String   # bytecode or null
   block: Int      # last updated block number
   time:  Datetime # last updated block timestamp
   tx:    String   # last updated transaction hash
