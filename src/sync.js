@@ -1,20 +1,15 @@
 import web3 from './web3';
 import { fire } from './contract';
-import { dapps, chain } from '../config/env';
+import { eachDeployment } from './util';
+import { dapps } from '../config/env';
 
-const sync = (id) => {
-  deployments(id).forEach((dep) => {
-    syncDapp(dep, id);
-  });
-}
-
-const syncDapp = (dep, id) => {
-  const abi = require(`../dapp/${id}/abi/${dep.key}.json`);
-  const contract = new web3.eth.Contract(abi, dep.key)
+const sync = (opt, id) => {
+  const abi = require(`../dapp/${id}/abi/${opt.key}.json`);
+  const contract = new web3.eth.Contract(abi, opt.key)
   const transformer = require(`../dapp/${id}`);
   web3.eth.getBlockNumber().then(latest => {
     console.log("Latest block:", latest);
-    transformer.events.forEach(event => batchEventSync(contract, event, dep.firstBlock, latest));
+    transformer.events.forEach(event => batchEventSync(contract, event, opt.firstBlock, latest));
   })
   .catch(e => console.log(e));
 }
@@ -47,20 +42,10 @@ const syncEvents = (contract, event, from, to) => {
   .catch(e => console.log(e));
 }
 
-//TODO modularize common sync & scribe init
-
-const jp = require('jsonpath');
 const argv = require('yargs').argv;
-const dict = require('../config/dapps')
-
-const deployments = (id) => {
-  const dapp = jp.query(dict, `$.dapps[?(@.id=="${id}")]`);
-  return jp.query(dapp, `$..[?(@.chain=="${chain.id}")]`);
-}
 
 if (argv.dapp) {
-  sync(argv.dapp);
+  eachDeployment(argv.dapp, sync);
 } else {
-  dapps.forEach(sync);
+  dapps.forEach((id) => eachDeployment(id, sync));
 }
-

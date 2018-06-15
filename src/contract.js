@@ -1,18 +1,8 @@
-const R = require('ramda');
 import web3 from './web3';
-import {db} from './db';
+import { db } from './db';
 import { chain } from '../config/env';
 
-// Given a config directory, instantiate a contract instance
-// export const contract = (path) => {
-//   const config = require(`../${path}`);
-//   const abi = require(`../${path}/abi/${config.info[chain.id].address}.json`);
-//   return {
-//     config: config,
-//     info: config.info,
-//     connect: new web3.eth.Contract(abi, config.info[chain.id].address)
-//   }
-// }
+const R = require('ramda');
 
 // Subscribe to all events for a given contract
 export const listen = (contract, events) => {
