@@ -14,6 +14,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-rate-limit": "^2.11.0",
+    "jsonpath": "^1.0.0",
     "pg-promise": "^8.4.3",
     "postgraphile": "^4.0.0-beta.9",
     "postgraphile-plugin-connection-filter": "^1.0.0-beta.9",

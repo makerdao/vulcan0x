@@ -1,0 +1,34 @@
+{
+  "dapps": [
+    {
+      "id": "oasis",
+      "desc": "OasisDex",
+      "deployments": [
+        {
+          "desc": "OasisDex",
+          "chain": "mainnet",
+          "key": "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
+          "firstBlock": 4751582
+        },
+        {
+          "desc": "OasisDex",
+          "chain": "kovan",
+          "key": "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9",
+          "firstBlock": 5216718
+        }
+      ]
+    },
+    {
+      "id": "erc20",
+      "desc": "ERC20 Token",
+      "deployments": [
+        {
+          "desc": "RHOC - RChain",
+          "chain": "mainnet",
+          "key": "0x168296bb09e24a88805cb9c33356536b980d3fc5",
+          "firstBlock": 3383352
+        }
+      ]
+    }
+  ]
+}

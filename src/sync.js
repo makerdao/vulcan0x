@@ -1,22 +1,26 @@
 import web3 from './web3';
-import dapps from './dapps';
-import { contract, fire } from './contract';
-import { chain } from '../config';
+import { fire } from './contract';
+import { dapps, chain } from '../config/env';
 
-const syncDapp = (name) => {
-  console.log("Contract:", name, "-------------------")
-  let dapp = contract(name);
-  web3.eth.getBlockNumber()
-  .then(latest => {
+const sync = (id) => {
+  deployments(id).forEach((dep) => {
+    syncDapp(dep, id);
+  });
+}
+
+const syncDapp = (dep, id) => {
+  const abi = require(`../dapp/${id}/abi/${dep.key}.json`);
+  const contract = new web3.eth.Contract(abi, dep.key)
+  const transformer = require(`../dapp/${id}`);
+  web3.eth.getBlockNumber().then(latest => {
     console.log("Latest block:", latest);
-    dapp.config.events.forEach(event => batchEventSync(dapp, event, latest));
+    transformer.events.forEach(event => batchEventSync(contract, event, dep.firstBlock, latest));
   })
   .catch(e => console.log(e));
 }
 
-const batchEventSync = (dapp, event, latestBlock) => {
+const batchEventSync = (contract, event, firstBlock, latestBlock) => {
   const step = parseInt(process.env.BATCH) || 2000;
-  const firstBlock = parseInt(dapp.info[chain.id].firstBlock);
   const batches = (from, arr=[]) => {
     arr.push({from: from, to: from+step })
     if(latestBlock < from+step) {
@@ -25,7 +29,6 @@ const batchEventSync = (dapp, event, latestBlock) => {
     } else
       return batches(from+step, arr);
   }
-  const contract = dapp.connect;
   require('bluebird').map(batches(firstBlock), (o) => {
     console.log(event.sig, o.from, o.to);
     return syncEvents(contract, event, o.from, o.to);
@@ -44,11 +47,20 @@ const syncEvents = (contract, event, from, to) => {
   .catch(e => console.log(e));
 }
 
+//TODO modularize common sync & scribe init
+
+const jp = require('jsonpath');
 const argv = require('yargs').argv;
+const dict = require('../config/dapps')
+
+const deployments = (id) => {
+  const dapp = jp.query(dict, `$.dapps[?(@.id=="${id}")]`);
+  return jp.query(dapp, `$..[?(@.chain=="${chain.id}")]`);
+}
 
 if (argv.dapp) {
-  syncDapp('dapp/'+argv.dapp)
+  sync(argv.dapp);
 } else {
-  dapps.forEach(syncDapp);
+  dapps.forEach(sync);
 }
 

@@ -1,23 +1,23 @@
 const R = require('ramda');
 import web3 from './web3';
 import {db} from './db';
-import { chain } from '../config';
+import { chain } from '../config/env';
 
 // Given a config directory, instantiate a contract instance
-export const contract = (path) => {
-  const config = require(`../${path}`);
-  const abi = require(`../${path}/abi/${config.info[chain.id].address}.json`);
-  return {
-    config: config,
-    info: config.info,
-    connect: new web3.eth.Contract(abi, config.info[chain.id].address)
-  }
-}
+// export const contract = (path) => {
+//   const config = require(`../${path}`);
+//   const abi = require(`../${path}/abi/${config.info[chain.id].address}.json`);
+//   return {
+//     config: config,
+//     info: config.info,
+//     connect: new web3.eth.Contract(abi, config.info[chain.id].address)
+//   }
+// }
 
 // Subscribe to all events for a given contract
-export const listen = (contract, config) => {
-  for (var i=0, len = config.events.length; i < len; i++) {
-    const evnt = config.events[i];
+export const listen = (contract, events) => {
+  for (var i=0, len = events.length; i < len; i++) {
+    const evnt = events[i];
     console.log(">", evnt.sig);
     contract.events[evnt.sig]({
       filter: evnt.filters

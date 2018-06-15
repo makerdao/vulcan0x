@@ -1,14 +1,6 @@
 import {sql} from '../../src/db';
-import {wad, id} from '../../src/util';
+import {wad} from '../../src/util';
 import web3 from '../../src/web3';
-const argv = require('yargs').argv;
-
-export const info = {
-  mainnet: {
-    address: argv.address || '0x168296bb09e24a88805cb9c33356536b980d3fc5',
-    firstBlock: argv.firstBlock || 3383352
-  }
-}
 
 const transfer = {
   sig: "Transfer",

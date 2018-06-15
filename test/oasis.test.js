@@ -1,7 +1,7 @@
 import * as oasis from '../dapp/oasis';
 import { fire } from '../src/contract';
 
-import { db } from '../config';
+import { db } from '../config/env';
 import { migrate } from  'postgres-migrations'
 
 beforeAll(() => {

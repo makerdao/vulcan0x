@@ -1,4 +1,4 @@
-import { db as config } from '../config';
+import { db as config } from '../config/env';
 
 const pgp = require('pg-promise')()
 const path = require('path')

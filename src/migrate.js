@@ -1,4 +1,4 @@
-import { db } from '../config';
+import { db } from '../config/env';
 
 const pg = require('pg')
 pg.defaults.ssl = true;

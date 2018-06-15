@@ -22,6 +22,8 @@ POSTGRES_DB=database
 
 ETH_PROVIDER=ws://localhost:8546
 ETH_CHAIN=kovan
+
+DAPPS=oasis:erc20 # specify which watchers to run on sync & subscribe
 ```
 
 Alternate configurations can be specified by setting `ENV` when invoking scripts:

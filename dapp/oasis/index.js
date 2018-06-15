@@ -1,17 +1,6 @@
 import {sql} from '../../src/db';
 import {wad, id} from '../../src/util';
 
-export const info = {
-  mainnet: {
-    address: "0x14fbca95be7e99c15cc2996c6c9d841e54b79425",
-    firstBlock: 4751582
-  },
-  kovan: {
-    address: "0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9",
-    firstBlock: 5216718
-  }
-}
-
 const make = {
   sig: "LogMake",
   transform: function(log) {
