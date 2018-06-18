@@ -27,7 +27,7 @@ const batchSync = (contract, event, firstBlock, latestBlock) => {
   require('bluebird').map(batches(firstBlock), (o) => {
     console.log(event.sig, o.from, o.to);
     return syncEvents(contract, event, o.from, o.to);
-  }, {concurrency: 2})
+  }, {concurrency: 1})
   .then(() => console.log(event.sig, "batchSync complete"));
 }
 

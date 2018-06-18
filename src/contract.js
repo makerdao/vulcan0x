@@ -48,7 +48,7 @@ const blockMeta = (log) => {
   })
 }
 
-const runMutations = (event, data) => {
+const runMutations = (event, data, tries=1) => {
   return db.tx(t => {
     const sql = template => t.any(template, data)
     return t.batch(R.map(sql, event.mutate))
@@ -57,5 +57,14 @@ const runMutations = (event, data) => {
       console.log(event.sig, data);
       return p
     })
+    .catch(e => {
+      console.log(e);
+      if(e.name == 'Batch Error' && tries <= 3) {
+        console.log("Tries:", tries)
+        setTimeout(function(){
+          runMutations(event, data, tries++);
+        }, Math.random);
+      }
+    });
   })
 }

@@ -1,6 +1,6 @@
 INSERT INTO erc20.balance (
   gem,
-  key,
+  lad,
   amt,
   code,
   block,
@@ -16,7 +16,7 @@ VALUES (
   to_timestamp(${time}),
   ${tx}
 )
-ON CONFLICT (gem, key)
+ON CONFLICT (gem, lad)
 DO UPDATE SET
   amt = ${dstB},
   block = ${block},
