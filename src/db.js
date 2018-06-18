@@ -10,4 +10,4 @@ function sql(file) {
   return new pgp.QueryFile(fullPath, { minify: true });
 }
 
-export { db, sql }
+export { db, config, sql }

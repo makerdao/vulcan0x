@@ -1,4 +1,5 @@
 {
+  "_comment": "Watcher config for dapp/id instances",
   "dapps": [
     {
       "id": "oasis",

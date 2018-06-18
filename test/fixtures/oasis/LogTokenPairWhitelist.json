@@ -1,0 +1,23 @@
+{ "address": "0x14FBCA95be7e99C15Cc2996c6C9d841e54B79425",
+  "blockNumber": 4752120,
+  "transactionHash": "0xf0f317a05158a9e5daa0d84da67848507263490621b3963b30ab1b097990ed04",
+  "transactionIndex": 13,
+  "blockHash": "0x7e8bb858389b2c6d8c06114b115ba2cf1cecab09cd2d94b4fbad96c1f20e3fc9",
+  "logIndex": 13,
+  "removed": false,
+  "id": "log_8b4a4839",
+  "returnValues": {
+     "0": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+     "1": "0x1776e1F26f98b1A5dF9cD347953a26dd3Cb46671",
+     "baseToken": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+     "quoteToken": "0x1776e1F26f98b1A5dF9cD347953a26dd3Cb46671"
+  },
+  "event": "LogAddTokenPairWhitelist",
+  "signature": "0x4b84ee81b11f5c5a33aaf2f3bdc5a35f23156c1b3cbefdbd00ba84846c19044b",
+  "raw": { "data": "0x000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000001776e1f26f98b1a5df9cd347953a26dd3cb46671",
+     "topics": [
+       "0x4b84ee81b11f5c5a33aaf2f3bdc5a35f23156c1b3cbefdbd00ba84846c19044b"
+     ]
+   }
+}
+

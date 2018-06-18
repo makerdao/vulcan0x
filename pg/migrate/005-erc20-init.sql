@@ -1,5 +1,3 @@
-CREATE SCHEMA erc20;
-
 CREATE TABLE erc20.transfer (
   gem   character varying(66),
   src   character varying(66),

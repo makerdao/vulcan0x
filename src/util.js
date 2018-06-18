@@ -2,20 +2,26 @@ import web3 from 'web3'
 import BigNumber from 'bignumber.js'
 import { chain } from '../config/env';
 
-export const wad = (uint, pow) => {
-  const scale = pow || `1e18`;
-  return new BigNumber(uint).dividedBy(scale).toNumber()
+const jp = require('jsonpath');
+const tokens = require(`../config/tokens.${chain.id}`)
+
+export const wad = (uint, gem) => {
+  const token = jp.query(tokens, `$.erc20[?(@.key=="${gem}")]`);
+  if (token == 0) {
+    console.log("Unrecognized :", gem)
+  }
+  const dec = token && token.decimals || 18
+  return new BigNumber(uint).dividedBy(`1e${dec}`).toNumber()
 }
 
 export const id = (hex) => {
   return web3.utils.hexToNumber(hex)
 }
 
-const jp = require('jsonpath');
-const dict = require('../config/dapps')
+const dapps = require('../config/dapps')
 
 export const eachDeployment = (id, f) => {
-  const dapp = jp.query(dict, `$.dapps[?(@.id=="${id}")]`);
+  const dapp = jp.query(dapps, `$.dapps[?(@.id=="${id}")]`);
   jp.query(dapp, `$..[?(@.chain=="${chain.id}")]`)
     .forEach((deployment) => f(deployment, id));
 }

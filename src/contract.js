@@ -1,6 +1,5 @@
 import web3 from './web3';
 import { db } from './db';
-import { chain } from '../config/env';
 
 const R = require('ramda');
 

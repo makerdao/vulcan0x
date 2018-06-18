@@ -78,3 +78,17 @@ describe('LogKill Event', () => {
   });
 
 });
+
+// describe('LogAddTokenPairWhitelist Event', () => {
+
+//   const log = require('./fixtures/oasis/LogTokenPairWhitelist');
+//   const fn =  oasis.events[3]
+
+//   test('transform', () => {
+//     expect(fn.transform(log)).toEqual({
+//       base: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+//       quote: "0x1776e1F26f98b1A5dF9cD347953a26dd3Cb46671"
+//     });
+//   });
+
+// });
