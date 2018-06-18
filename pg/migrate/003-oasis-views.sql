@@ -5,14 +5,14 @@ SELECT
   id,
   pair as pair_hash,
   (SELECT CONCAT(
-      COALESCE(lot.symbol, '???'),'/',COALESCE(bid.symbol, '???'))
+      COALESCE(lot.symbol, 'XXX'),'/',COALESCE(bid.symbol, 'XXX'))
   ) AS pair,
   maker,
   lot_gem,
-  lot.symbol AS lot_tkn,
+  COALESCE(lot.symbol, 'XXX') AS lot_tkn,
   lot_amt,
   bid_gem,
-  bid.symbol AS bid_tkn,
+  COALESCE(bid.symbol, 'XXX') AS bid_tkn,
   bid_amt,
   (lot_amt/bid_amt) AS price,
   killed,
@@ -45,14 +45,16 @@ CREATE VIEW api.oasis_trade AS
 SELECT
   offer_id,
   pair as pair_hash,
-  (SELECT CONCAT(lot.symbol,'/',bid.symbol)) AS pair,
+  (SELECT CONCAT(
+      COALESCE(lot.symbol, 'XXX'),'/',COALESCE(bid.symbol, 'XXX'))
+  ) AS pair,
   maker,
   taker,
   lot_gem,
-  lot.symbol AS lot_tkn,
+  COALESCE(lot.symbol, 'XXX') AS lot_tkn,
   lot_amt,
   bid_gem,
-  bid.symbol AS bid_tkn,
+  COALESCE(bid.symbol, 'XXX') AS bid_tkn,
   bid_amt,
   (lot_amt/bid_amt) AS price,
   block,
