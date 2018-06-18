@@ -1,4 +1,4 @@
-import { express as config } from '../config';
+import { express as config } from '../config/env';
 
 const express          = require('express');
 const { postgraphile } = require('postgraphile');
