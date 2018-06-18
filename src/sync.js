@@ -9,12 +9,12 @@ const sync = (opt, id) => {
   const transformer = require(`../dapp/${id}`);
   web3.eth.getBlockNumber().then(latest => {
     console.log("Latest block:", latest);
-    transformer.events.forEach(event => batchEventSync(contract, event, opt.firstBlock, latest));
+    transformer.events.forEach(event => batchSync(contract, event, opt.firstBlock, latest));
   })
   .catch(e => console.log(e));
 }
 
-const batchEventSync = (contract, event, firstBlock, latestBlock) => {
+const batchSync = (contract, event, firstBlock, latestBlock) => {
   const step = parseInt(process.env.BATCH) || 2000;
   const batches = (from, arr=[]) => {
     arr.push({from: from, to: from+step })
