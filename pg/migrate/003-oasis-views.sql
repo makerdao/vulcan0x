@@ -14,7 +14,7 @@ SELECT
   bid_gem,
   COALESCE(bid.symbol, 'XXX') AS bid_tkn,
   bid_amt,
-  (lot_amt/bid_amt) AS price,
+  (bid_amt/lot_amt) AS price,
   killed,
   block,
   time,
@@ -56,7 +56,7 @@ SELECT
   bid_gem,
   COALESCE(bid.symbol, 'XXX') AS bid_tkn,
   bid_amt,
-  (lot_amt/bid_amt) AS price,
+  (bid_amt/lot_amt) AS price,
   block,
   time,
   tx
