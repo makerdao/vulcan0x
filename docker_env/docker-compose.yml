@@ -7,7 +7,6 @@ services:
       - $ENV_FILE
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-      - ./../pg/migrate:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"
 
@@ -16,10 +15,11 @@ services:
     container_name: migrate
     volumes:
       - $ENV_FILE:/opt/vulcan0x/.env
+      - ./wait-for:/opt/vulcan0x/wait-for
       - ./../src:/opt/vulcan0x/src
       - ./../config:/opt/vulcan0x/config
     command: >
-      bash -c "ENV=/opt/vulcan0x/.env npm run migrate"
+      bash -c "ENV=/opt/vulcan0x/.env ./wait-for postgres:5432 -t 30 -- npm run migrate"
     depends_on:
       - postgres
     deploy:
@@ -34,10 +34,11 @@ services:
     container_name: sync
     volumes:
       - $ENV_FILE:/opt/vulcan0x/.env
+      - ./wait-for:/opt/vulcan0x/wait-for
       - ./../src:/opt/vulcan0x/src
       - ./../config:/opt/vulcan0x/config
     command: >
-      bash -c "ENV=/opt/vulcan0x/.env npm run sync"
+      bash -c "ENV=/opt/vulcan0x/.env ./wait-for postgres:5432 -t 30 -- npm run sync"
     depends_on:
       - postgres
     deploy:
@@ -52,10 +53,11 @@ services:
     container_name: subscribe
     volumes:
       - $ENV_FILE:/opt/vulcan0x/.env
+      - ./wait-for:/opt/vulcan0x/wait-for
       - ./../src:/opt/vulcan0x/src
       - ./../config:/opt/vulcan0x/config
     command: >
-      bash -c "ENV=/opt/vulcan0x/.env npm run subscribe"
+      bash -c "ENV=/opt/vulcan0x/.env ./wait-for postgres:5432 -t 30 -- npm run subscribe"
     depends_on:
       - postgres
 
@@ -66,9 +68,10 @@ services:
       - 4000:4000
     volumes:
       - $ENV_FILE:/opt/vulcan0x/.env
+      - ./wait-for:/opt/vulcan0x/wait-for
       - ./../graphql:/opt/vulcan0x/graphql
       - ./../config:/opt/vulcan0x/config
     command: >
-      bash -c "ENV=/opt/vulcan0x/.env npm run graphql"
+      bash -c "ENV=/opt/vulcan0x/.env ./wait-for postgres:5432 -t 30 -- sleep 10 && npm run graphql"
     depends_on:
-      - postgres
+      - migrate
