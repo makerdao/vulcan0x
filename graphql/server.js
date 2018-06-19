@@ -22,7 +22,7 @@ const graphqlConfig = {
   enableCors: true
 }
 
-const schemas = [ 'api', 'erc20' ]
+const schemas = [ 'api', ]
 
 const limiter = new RateLimit({
   windowMs: 1*60*1000, // 1 minute
