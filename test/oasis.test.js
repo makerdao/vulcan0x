@@ -1,8 +1,12 @@
+import web3 from '../src/web3';
 import * as oasis from '../dapp/oasis';
 import { fire } from '../src/contract';
 
 import { db } from '../config/env';
 import { migrate } from  'postgres-migrations'
+
+const abi = require('../dapp/oasis/abi/0x14fbca95be7e99c15cc2996c6c9d841e54b79425.json');
+const contract = new web3.eth.Contract(abi, '0x14fbca95be7e99c15cc2996c6c9d841e54b79425')
 
 beforeAll(() => {
   return migrate(db, "pg/migrate")
@@ -42,8 +46,10 @@ describe('LogTake Event', () => {
   const fn =  oasis.events[1]
 
   test('transform', () => {
-    expect(fn.transform(log)).toEqual({
+    expect.assertions(1);
+    return expect(fn.transform(log, contract)).resolves.toEqual({
       id:      53724,
+      filled:  true,
       pair:    "0x10aed75aa327f09ef87e5bdfaedf498ca260499a251ae5e049ddbd5e1633cd9c",
       maker:   "0x487E892B3C58507B5B41Eef397D8F7361E90027B",
       bid_gem: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -56,7 +62,7 @@ describe('LogTake Event', () => {
 
   test('mutate success', () => {
     expect.assertions(1);
-    return expect(fire(fn, log)).resolves.toBeTruthy();
+    return expect(fire(fn, log, contract)).resolves.toBeTruthy();
   });
 
 });
@@ -78,17 +84,3 @@ describe('LogKill Event', () => {
   });
 
 });
-
-// describe('LogAddTokenPairWhitelist Event', () => {
-
-//   const log = require('./fixtures/oasis/LogTokenPairWhitelist');
-//   const fn =  oasis.events[3]
-
-//   test('transform', () => {
-//     expect(fn.transform(log)).toEqual({
-//       base: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-//       quote: "0x1776e1F26f98b1A5dF9cD347953a26dd3Cb46671"
-//     });
-//   });
-
-// });
