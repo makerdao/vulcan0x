@@ -1,0 +1,24 @@
+{
+  "oasis": [
+    {
+      "id": "WETHDAI",
+      "base": "WETH",
+      "quote": "DAI"
+    },
+    {
+      "id": "WETHRHOC",
+      "base": "WETH",
+      "quote": "RHOC"
+    },
+    {
+      "id": "MKRDAI",
+      "base": "MKR",
+      "quote": "DAI"
+    },
+    {
+      "id": "MKRWETH",
+      "base": "MKR",
+      "quote": "WETH"
+    }
+  ]
+}
