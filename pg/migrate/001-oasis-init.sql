@@ -9,6 +9,7 @@ CREATE TABLE oasis.offer (
   bid_gem    character varying(66),
   bid_amt    decimal(28,18),
   removed    boolean,
+  filled     boolean default false,
   killed     integer default 0,
   block      integer not null,
   time       timestamptz not null,
@@ -18,6 +19,7 @@ CREATE TABLE oasis.offer (
 CREATE INDEX oasis_offer_pair_index ON oasis.offer(pair);
 CREATE INDEX oasis_offer_maker_index ON oasis.offer(maker);
 CREATE INDEX oasis_offer_killed_index ON oasis.offer(killed);
+CREATE INDEX oasis_offer_filled_index ON oasis.offer(filled);
 CREATE INDEX oasis_offer_removed_index ON oasis.offer(removed);
 
 CREATE TABLE oasis.trade (
@@ -42,3 +44,9 @@ CREATE INDEX oasis_trade_bid_gem_index ON oasis.trade(bid_gem);
 CREATE INDEX oasis_trade_maker_index ON oasis.trade(maker);
 CREATE INDEX oasis_trade_taker_index ON oasis.trade(taker);
 CREATE INDEX oasis_trade_removed_index ON oasis.trade(removed);
+
+CREATE TABLE oasis.market (
+  id         character varying(10) primary key,
+  base       character varying(10),
+  quote      character varying(10)
+);
