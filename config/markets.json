@@ -19,6 +19,21 @@
       "id": "MKRWETH",
       "base": "MKR",
       "quote": "WETH"
+    },
+    {
+      "id": "WETHDGD",
+      "base": "WETH",
+      "quote": "DGD"
+    },
+    {
+      "id": "WETHBAT",
+      "base": "WETH",
+      "quote": "BAT"
+    },
+    {
+      "id": "WETHICN",
+      "base": "WETH",
+      "quote": "ICN"
     }
   ]
 }
