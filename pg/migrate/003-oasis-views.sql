@@ -5,8 +5,8 @@ SELECT
   o.id,
   m.id AS market,
   (
-    CASE WHEN m.base = lot.symbol THEN 'sell'
-    WHEN m.base = bid.symbol THEN 'buy'
+    CASE WHEN m.base = lot.symbol THEN 'ask'
+    WHEN m.base = bid.symbol THEN 'bid'
     ELSE NULL
     END
   ) AS act,
