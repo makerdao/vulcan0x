@@ -1,20 +1,6 @@
-CREATE TYPE api.oasis_order AS (
-  offer      integer,
-  market     varchar,
-  price      numeric,
-  amount     numeric,
-  act        varchar
-);
-
-COMMENT ON COLUMN api.oasis_order.offer is 'Offer ID';
-COMMENT ON COLUMN api.oasis_order.market is 'Market Symbol';
-COMMENT ON COLUMN api.oasis_order.price is 'Price (quote)';
-COMMENT ON COLUMN api.oasis_order.amount is 'Amount (base)';
-COMMENT ON COLUMN api.oasis_order.act is '(ask|bid)';
-
-CREATE FUNCTION api.oasis_orderbook() RETURNS setof api.oasis_order AS $$
+CREATE VIEW api.oasis_orderbook AS
   SELECT
-    id AS offer,
+    id AS offer_id,
     market,
     price,
     (
@@ -35,4 +21,9 @@ CREATE FUNCTION api.oasis_orderbook() RETURNS setof api.oasis_order AS $$
   WHERE killed = 0
   AND filled = false
   ORDER BY market, act, price;
-$$ LANGUAGE SQL stable;
+
+COMMENT ON COLUMN api.oasis_orderbook.offer_id is 'Offer ID';
+COMMENT ON COLUMN api.oasis_orderbook.market is 'Market (BASEQUOTE)';
+COMMENT ON COLUMN api.oasis_orderbook.price is 'Price (quote)';
+COMMENT ON COLUMN api.oasis_orderbook.amount is 'Amount (base)';
+COMMENT ON COLUMN api.oasis_orderbook.act is 'Market action (ask|bid)';

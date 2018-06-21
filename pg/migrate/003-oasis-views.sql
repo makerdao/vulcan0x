@@ -41,7 +41,7 @@ LEFT JOIN oasis.market m
 COMMENT ON COLUMN api.oasis_offer.id is 'Unique offer identifier';
 COMMENT ON COLUMN api.oasis_offer.market is 'Market base/quote symbol';
 COMMENT ON COLUMN api.oasis_offer.pair is 'Trading pair hash';
-COMMENT ON COLUMN api.oasis_offer.act is 'Market action (buy|sell)';
+COMMENT ON COLUMN api.oasis_offer.act is 'Market action (ask|bid)';
 COMMENT ON COLUMN api.oasis_offer.maker is 'Offer creator address (msg.sender)';
 COMMENT ON COLUMN api.oasis_offer.lot_gem is 'Lot token address';
 COMMENT ON COLUMN api.oasis_offer.lot_tkn is 'Lot token symbol';
