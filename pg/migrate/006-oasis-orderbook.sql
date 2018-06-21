@@ -1,4 +1,4 @@
-CREATE VIEW api.oasis_orderbook AS
+CREATE VIEW api.oasis_order AS
   SELECT
     id AS offer_id,
     market,
@@ -22,8 +22,8 @@ CREATE VIEW api.oasis_orderbook AS
   AND filled = false
   ORDER BY market, act, price;
 
-COMMENT ON COLUMN api.oasis_orderbook.offer_id is 'Offer ID';
-COMMENT ON COLUMN api.oasis_orderbook.market is 'Market (BASEQUOTE)';
-COMMENT ON COLUMN api.oasis_orderbook.price is 'Price (quote)';
-COMMENT ON COLUMN api.oasis_orderbook.amount is 'Amount (base)';
-COMMENT ON COLUMN api.oasis_orderbook.act is 'Market action (ask|bid)';
+COMMENT ON COLUMN api.oasis_order.offer_id is 'Offer ID';
+COMMENT ON COLUMN api.oasis_order.market is 'Market (BASEQUOTE)';
+COMMENT ON COLUMN api.oasis_order.price is 'Price (quote)';
+COMMENT ON COLUMN api.oasis_order.amount is 'Amount (base)';
+COMMENT ON COLUMN api.oasis_order.act is 'Market action (ask|bid)';
