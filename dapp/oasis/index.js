@@ -23,6 +23,7 @@ const take = {
     return isOfferFilled(contract, log.returnValues.id)
     .then(filled => {
       return {
+        idx: log.logIndex,
         filled: filled,
         id: id(log.returnValues.id),
         pair: log.returnValues.pair,

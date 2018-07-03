@@ -49,6 +49,7 @@ describe('LogTake Event', () => {
     expect.assertions(1);
     return expect(fn.transform(log, contract)).resolves.toEqual({
       id:      53724,
+      idx:     9,
       filled:  true,
       pair:    "0x10aed75aa327f09ef87e5bdfaedf498ca260499a251ae5e049ddbd5e1633cd9c",
       maker:   "0x487E892B3C58507B5B41Eef397D8F7361E90027B",

@@ -34,7 +34,9 @@ CREATE TABLE oasis.trade (
   removed    boolean,
   block      integer not null,
   time       timestamptz not null,
-  tx         character varying(66) unique not null
+  tx         character varying(66) not null,
+  idx        integer not null,
+  CONSTRAINT unique_tx_idx UNIQUE(tx, idx)
 );
 
 CREATE INDEX oasis_trade_offer_id_index ON oasis.trade(offer_id);

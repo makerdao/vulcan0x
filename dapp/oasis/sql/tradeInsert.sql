@@ -10,7 +10,8 @@ INSERT INTO oasis.trade (
   removed,
   block,
   time,
-  tx
+  tx,
+  idx
 )
 VALUES (
   ${id},
@@ -24,7 +25,8 @@ VALUES (
   ${removed},
   ${block},
   to_timestamp(${time}),
-  ${tx}
+  ${tx},
+  ${idx}
 )
-ON CONFLICT ( tx )
+ON CONFLICT (tx, idx)
 DO UPDATE SET removed = ${removed}
