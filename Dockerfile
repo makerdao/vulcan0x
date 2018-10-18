@@ -1,4 +1,4 @@
-FROM node
+FROM node:8
 
 COPY dapp /opt/vulcan0x/dapp
 COPY config /opt/vulcan0x/config
