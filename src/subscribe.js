@@ -1,3 +1,7 @@
+/**
+ * Subscribes to new events from blockchain.
+ */
+
 import web3 from './web3';
 import { listen } from './contract';
 import { eachDeployment } from './util';

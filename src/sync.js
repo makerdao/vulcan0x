@@ -1,3 +1,7 @@
+/**
+ * Sync PAST events
+ */
+
 import web3 from './web3';
 import { fire } from './contract';
 import { eachDeployment } from './util';

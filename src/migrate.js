@@ -1,3 +1,7 @@
+/**
+ * Migrate schema between version. I imagine that we could get rid of this for fresh deployments.
+ */
+
 import { chain } from '../config/env';
 import { db, config } from './db';
 
