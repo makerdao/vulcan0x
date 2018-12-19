@@ -62,3 +62,9 @@ all contracts in the `dapp` folder or with the `--dapp` flag to run against a
 particular contract.
 
 `npm run sync -- --dapp=oasis`
+
+### Development
+
+```sh
+./scripts/start-dev.sh
+```
