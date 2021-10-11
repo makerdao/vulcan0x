@@ -1,0 +1,29 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Build Docker image
+
+jobs:
+  deploy:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build, tag, and push image to DockerHub
+      id: build-image
+      run: |
+        docker build -t makerdao/vulcan0x .
+        docker push makerdao/vulcan0x
